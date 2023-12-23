@@ -4,7 +4,7 @@ clean:
 	@rm scarf
 
 build:
-	g++ -o scarf src/cpp/main.cpp
+	g++ -Wall -fPIC -o scarf src/cpp/main.cpp
 
 run:
 	./scarf
