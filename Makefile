@@ -1,10 +1,15 @@
 all:
 
 clean:
-	@rm scarf
+	@rm -f scarf scarf-config-creator
 
-build:
-	g++ -Wall -fPIC -I${PWD}/src/cpp -o scarf src/cpp/main.cpp
+build: build_scarf build_scarf_config_creator
+
+build_scarf:
+	g++ -Wall -fPIC -I${PWD}/src/scarf -o scarf src/scarf/main.cpp
+
+build_scarf_config_creator build_scc:
+	g++ -Wall -fPIC -I${PWD}/src/scarf_config_creator -o scarf-config-creator src/scarf_config_creator/scarf_config_creator.cpp
 
 run:
 	./scarf
