@@ -1,1 +1,10 @@
+Error messages are setup as so:
+scarf-<5 CHARACTER ERROR MESSAGE>{TAB}<SHORT DESCRIPTION>
+ie:
+scarf-5    \tInternal error: log level incorrectly set.
+
+
 scarf-0 :
+
+scarf-5 :
+    The log level was set incorrectly. This is an internal error, should not due to user error.
