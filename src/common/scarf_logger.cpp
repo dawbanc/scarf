@@ -150,3 +150,6 @@ void ScarfLogger::printProgramVersion(void){
     printLineToAll("--------------------------------------------------");
     printLineToAll("");
 }
+
+void ScarfLogger::printExternalError(char severity, )
+    severity char: M for Message, W for Warning, E for Error, and F for Fatal
