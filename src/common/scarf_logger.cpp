@@ -7,7 +7,9 @@
 //----------------------------------------------------------------
 #include <iostream>
 #include <fstream>
-#include <cstring>
+#include <string>
+
+#include "version.h"
 
 class ScarfLogger{
 
@@ -19,15 +21,17 @@ class ScarfLogger{
     };
 
     enum log_level level;
+    std::string program_name;
     bool enable_internal_log;
     bool enable_external_log;
     const char* internal_log_path;
     const char* external_log_path;
-    std::ofstream ext_log;
     std::ofstream int_log;
+    std::ofstream ext_log;
+
 
     public:
-        ScarfLogger();
+        ScarfLogger(std::string prog);
         void setLogLevel(const char* level_in);
         const char* getLogLevel(void);
         void enableIntLog(void);
@@ -36,12 +40,18 @@ class ScarfLogger{
         void setExtLogPath(const char* file_path);
         void openLog(void);
         void closeLog(void);
+        void printLineToTerminal(std::string line);
+        void printLineToInternalLog(std::string line);
+        void printLineToExternalLog(std::string line);
+        void printLineToAll(std::string line);
+        void printProgramVersion(void);
 };
 
-ScarfLogger::ScarfLogger(){
+ScarfLogger::ScarfLogger(std::string prog){
     level = MEDIUM;                 // set default log level
     internal_log_path = "null";     // wait to log until paths are set
     external_log_path = "null";     // wait to log until paths are set
+    program_name = prog;                 // get program information (scarf or scc)
 }
 
 void ScarfLogger::setLogLevel(const char* level_in){
@@ -106,4 +116,37 @@ void ScarfLogger::closeLog(void){
     if (enable_external_log) {
         ext_log.close();
     }
+}
+
+void ScarfLogger::printLineToTerminal(std::string line){
+    std::cout << line << std::endl;
+}
+
+void ScarfLogger::printLineToInternalLog(std::string line){
+    int_log << line << std::endl;
+}
+
+void ScarfLogger::printLineToExternalLog(std::string line){
+    ext_log << line << std::endl;
+}
+
+void ScarfLogger::printLineToAll(std::string line){
+    printLineToTerminal(line);
+    printLineToInternalLog(line);
+    printLineToExternalLog(line);
+}
+
+void ScarfLogger::printProgramVersion(void){
+    // print logo and info
+    printLineToAll("--------------------------------------------------");
+    printLineToAll("⢠⣶⣶⣶⣶⣆⠀  - " + program_name + " " + std::string(VERSION_SHORT));
+    printLineToAll("⢸⣿⡛⠛⣻⣿⠀  - version: " + std::string(VERSION_LONG));
+    printLineToAll("⠘⢿⣿⣿⣟⡏⠀  -");
+    printLineToAll(" ⢠⣿⣿⣾⣿⣆⠀ -");
+    printLineToAll("⠀⣾⣿⠏⠈⣿⣻⡀ -");
+    printLineToAll("⢸⣿⡿⠀⠀⠞⠟⠃ -");
+    printLineToAll("⢸⣿⣷⠀⠀⠀⠀⠀ -");
+    printLineToAll("⠓⠟⠹⠀⠀⠀⠀⠀ -");
+    printLineToAll("--------------------------------------------------");
+    printLineToAll("");
 }

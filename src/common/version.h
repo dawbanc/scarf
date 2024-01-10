@@ -5,12 +5,5 @@
 // Notes:
 // For changes view git history
 //----------------------------------------------------------------
-#include <iostream>
-
-int main(int argc, char* argvp[]){
-
-
-
-    std::cout << "fin" << std::endl;
-    return 0;
-}
+#define VERSION_SHORT "0.0.0"
+#define VERSION_LONG  "v0.0.0_231223_2232"
