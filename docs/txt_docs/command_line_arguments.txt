@@ -3,14 +3,23 @@ Command Line Arguments:
 Example usage:
   scarf [options] <-raw path/to/image.raw>
 
+-conf <path/to/conf.yaml>:
+    Specifies the path to the configuration yaml file.
+
 -debug:
     Prints out additional information to debug the program.
 
 --h || --help:
     Prints out the help information.
 
+-log <path>:
+    Specifies the log path rather than $PWD/scarf_log
+
+-no_log:
+    Will not print out the transcript
+
 -raw <path/to/image.raw>:
     Specifies the path to the raw image to pull data from
 
--conf <path/to/conf.yaml>:
-    Specifies the path to the configuration yaml file.
+-quiet:
+    Suppresses terminal output

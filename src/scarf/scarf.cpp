@@ -9,45 +9,53 @@
 #include <cstring>
 
 #include "scarf_logger.cpp"
-#include "app_config.cpp"
+#include "scarf_cli_args.cpp"
 
 int main(int argc, char* argv[]) {
 	ScarfLogger logger("scarf");
-	AppConfig app_config;	// create app configuration object
 
 	// get command line args
 	if (argc <= 1) {
 		std::cout << "No arguments passed. In future versions, this may open the gui. Please check the CLI arguments:\n" << std::endl;
-		app_config.printHelp();
 		exit(1);
 	} else {
 		// parse cmd line args
 		for (int i=1; i < argc; i++) {
-			if ((strcmp(argv[i],"--h") == 0) || (strcmp(argv[i],"--help")==0)) {
-				app_config.printHelp();
-				exit(1);
+			if (strcmp(argv[i],"-conf")){
+
 			} else if (strcmp(argv[i],"-debug") == 0) {
-				app_config.debug = true;
+
+			} else if ((strcmp(argv[i],"--h") == 0) || (strcmp(argv[i],"--help")==0) || (strcmp(argv[i],"-help")==0) || (strcmp(argv[i], "-h")==0)) {
+
+			} else if (strcmp(argv[i], "-int_log") == 0) {
+
+
+			} else if (strcmp(argv[i], "-log") == 0) {
+
+			} else if (strcmp(argv[i], "-no_log") == 0) {
+
 			} else if (strcmp(argv[i], "-raw") == 0) {
-				app_config.raw_file_location = argv[i+1];
-				i++;
+
+			} else if (strcmp(argv[i], "-quiet") == 0) {
+
 			} else {
-					std::cout << "Default case (unrecognized option)\n" << std::endl;	
+
 			}
 		}	
 	}
 
 	// initialize logger
-	logger.setExtLogPath("/home/dxb/Documents/github/scarf/transcript");
-	logger.enableExtLog();
+	logger.setExtLogPath("/home/dxb/Documents/github/scarf/scarf_log");
 	logger.openLog();
 	logger.printProgramVersion();
 
+
 	// if debug is enabled print additional information
-	if(app_config.debug == true) {
+	/*if(app_config.debug == true) {
 		std::cout << std::endl;
 		app_config.printAppConfig();
 	}
+	*/
 
 	// get sd configuration
 	
@@ -61,5 +69,7 @@ int main(int argc, char* argv[]) {
 
 		// write the sd card data block into file
 	
+
+	logger.closeLog();
 	return 0;
 }

@@ -1,3 +1,6 @@
+General messages are setup as:
+scarf-Gen  \tMessage: <SHORT DESCRIPTION>
+
 Error messages are setup as so:
 scarf-<5 CHARACTER ERROR MESSAGE>{TAB}<severity>:<SHORT DESCRIPTION>
 ie:
