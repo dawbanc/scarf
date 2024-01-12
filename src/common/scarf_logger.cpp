@@ -103,13 +103,19 @@ void ScarfLogger::printLineToAll(std::string line){
 }
 
 void ScarfLogger::printProgramVersion(void){
+    // get time into a buffer
+    time_t now = time(0);
+    struct tm tstruct;
+    char time_buffer[20];
+    tstruct = *localtime(&now);
+    strftime(time_buffer, sizeof(time_buffer), "%Y_%m_%d %H%M%S", &tstruct);
     // print logo and info
     printLineToAll("--------------------------------------------------");
     printLineToAll("⢠⣶⣶⣶⣶⣆⠀  - " + program_name + " " + std::string(VERSION_SHORT));
     printLineToAll("⢸⣿⡛⠛⣻⣿⠀  - version: " + std::string(VERSION_LONG));
-    printLineToAll("⠘⢿⣿⣿⣟⡏⠀  -");
-    printLineToAll(" ⢠⣿⣿⣾⣿⣆⠀ -");
-    printLineToAll("⠀⣾⣿⠏⠈⣿⣻⡀ -");
+    printLineToAll("⠘⢿⣿⣿⣟⡏⠀  -----------------------------------------");
+    printLineToAll(" ⢠⣿⣿⣾⣿⣆⠀ - Start time: " + std::string(time_buffer));
+    printLineToAll("⠀⣾⣿⠏⠈⣿⣻⡀ -----------------------------------------");
     printLineToAll("⢸⣿⡿⠀⠀⠞⠟⠃ -");
     printLineToAll("⢸⣿⣷⠀⠀⠀⠀⠀ -");
     printLineToAll("⠓⠟⠹⠀⠀⠀⠀⠀ -");
