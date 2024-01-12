@@ -1,6 +1,6 @@
 //----------------------------------------------------------------
 // Project:                scarf
-// Author:                 Dawson X Bancroft
+// Author:                 dawbanc
 // Date (yy/mm/dd):        24/01/03
 // Notes:
 // For changes view git history
@@ -110,16 +110,16 @@ void ScarfLogger::printProgramVersion(void){
     tstruct = *localtime(&now);
     strftime(time_buffer, sizeof(time_buffer), "%Y_%m_%d %H%M%S", &tstruct);
     // print logo and info
-    printLineToAll("--------------------------------------------------");
+    printLineToAll("-----------------------------------------------------");
     printLineToAll("⢠⣶⣶⣶⣶⣆⠀  - " + program_name + " " + std::string(VERSION_SHORT));
     printLineToAll("⢸⣿⡛⠛⣻⣿⠀  - version: " + std::string(VERSION_LONG));
-    printLineToAll("⠘⢿⣿⣿⣟⡏⠀  -----------------------------------------");
+    printLineToAll("⠘⢿⣿⣿⣟⡏⠀  --------------------------------------------");
     printLineToAll(" ⢠⣿⣿⣾⣿⣆⠀ - Start time: " + std::string(time_buffer));
-    printLineToAll("⠀⣾⣿⠏⠈⣿⣻⡀ -----------------------------------------");
+    printLineToAll("⠀⣾⣿⠏⠈⣿⣻⡀ --------------------------------------------");
     printLineToAll("⢸⣿⡿⠀⠀⠞⠟⠃ -");
     printLineToAll("⢸⣿⣷⠀⠀⠀⠀⠀ -");
     printLineToAll("⠓⠟⠹⠀⠀⠀⠀⠀ -");
-    printLineToAll("--------------------------------------------------");
+    printLineToAll("-----------------------------------------------------");
     printLineToAll("");
 }
 
