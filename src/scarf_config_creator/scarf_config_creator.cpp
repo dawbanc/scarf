@@ -5,8 +5,6 @@
 // Notes:
 // For changes view git history
 //----------------------------------------------------------------
-#include <iostream>
-
 #include "scarf_logger.cpp"
 
 int main(int argc, char* argvp[]){

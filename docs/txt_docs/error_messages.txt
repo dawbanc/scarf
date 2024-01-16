@@ -7,7 +7,11 @@ ie:
 scarf-5    \tFATAL: Internal error: log level incorrectly set.
 
 
-scarf-0 :
+scarf-0 : FATAL
+    There were no command line arguments specified. In the future this may automatically open the GUI, but as of right now it will quit.
+
+scarf-1 : ERROR
+    There are unrecognized arguments passed via the command line to the program.
 
 scarf-5 : FATAL
     The log level was set incorrectly. This is an internal error, should not due to user error.

@@ -15,6 +15,7 @@ class ScarfCLIArgs {
         bool help = false;                          // --help | --h | -help | -h
         std::string int_log_path = "null";          // -int_log <path>
         std::string ext_log_path = "scarf_log";     // -log <path> (default is scarf_log)
+        bool no_log;
         std::string raw_file_path = "null";         // -raw
         bool quiet = false;                         // -quiet
 
@@ -40,6 +41,9 @@ class ScarfCLIArgs {
 
         void setRawFilePath(std::string input_raw_file_path);
         std::string getRawFilePath(void);
+
+        void setNoLog(bool input_no_log);
+        bool getNoLog(void);
 
         void setQuiet(bool input_quiet);
         bool getQuiet(void);
@@ -99,6 +103,14 @@ void ScarfCLIArgs::setRawFilePath(std::string input_raw_file_path){
 
 std::string ScarfCLIArgs::getRawFilePath(void){
     return raw_file_path;
+}
+
+void ScarfCLIArgs::setNoLog(bool input_no_log){
+    no_log = input_no_log;
+}
+
+bool ScarfCLIArgs::getNoLog(void){
+    return no_log;
 }
 
 void ScarfCLIArgs::setQuiet(bool input_quiet){
