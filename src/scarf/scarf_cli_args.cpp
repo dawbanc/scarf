@@ -47,6 +47,9 @@ class ScarfCLIArgs {
 
         void setQuiet(bool input_quiet);
         bool getQuiet(void);
+
+        std::string boolToString(bool input_bool);
+        std::string toString(void);
 };
 
 void ScarfCLIArgs::setConfPath(std::string input_conf_path){
@@ -119,4 +122,24 @@ void ScarfCLIArgs::setQuiet(bool input_quiet){
 
 bool ScarfCLIArgs::getQuiet(void){
     return quiet;
+}
+
+std::string ScarfCLIArgs::boolToString(bool input_bool){
+    if (input_bool){
+        return "true";
+    } else {
+        return "false";
+    }
+}
+
+std::string ScarfCLIArgs::toString(void){
+    std::string temp;
+    temp.append("CLI Argument Configuration:\n");
+    temp.append("-conf:\t");
+    temp.append(getConfPath());
+    temp.append("\n");
+    temp.append("-debug:\t");
+    temp.append(boolToString(getDebug()));
+
+    return temp;
 }

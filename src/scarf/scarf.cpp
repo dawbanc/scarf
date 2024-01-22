@@ -13,7 +13,7 @@
 
 int main(int argc, char *argv[]) {
   // construct Logger
-  ScarfLogger logger("Scarf | RAW to CSV Converter");
+  ScarfLogger logger("scarf");
   ScarfCLIArgs cli_args;
 
   // get command line args
@@ -58,8 +58,13 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  logger.printLineToAll(cli_args.toString());
+  if (cli_args.getDebug()){
+    logger.printLineToAll(cli_args.toString());
+  }
   // initialize logger
   logger.openLog();
+  logger.printLineToAll("Initiating logger");
   logger.printProgramVersion();
 
   // get sd configuration
