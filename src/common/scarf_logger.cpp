@@ -17,25 +17,27 @@ class ScarfLogger{
     bool enable_internal_log;
     bool enable_external_log;
     bool enable_terminal_log;
-    const char* internal_log_path;
-    const char* external_log_path;
+    std::string internal_log_path;
+
     std::ofstream int_log;
     std::ofstream ext_log;
 
 
     private:
-        void enableIntLog(void);
-        void enableExtLog(void);
         void printLineToTerminal(std::string line);
         void printLineToInternalLog(std::string line);
         void printLineToExternalLog(std::string line);
 
 
     public:
+        std::string external_log_path;
+
         ScarfLogger(std::string prog);
-        void setTerLogOff(bool input_terminal_off);
-        void setIntLogPath(const char* file_path);
-        void setExtLogPath(const char* file_path);
+        void setEnableIntLog(bool input_internal);
+        void setEnableExtLog(bool input_external);
+        void setEnableTerLog(bool input_terminal);
+        void setIntLogPath(std::string file_path);
+        void setExtLogPath(std::string file_path);
         void openLog(void);
         void closeLog(void);
         void printLineToAll(std::string line);
@@ -49,30 +51,28 @@ ScarfLogger::ScarfLogger(std::string prog){
     enable_external_log = false;    // default to off external log
     enable_terminal_log = true;     // default to on terminal
     internal_log_path = "null";     // wait to log until paths are set
-    external_log_path = "transcript";     // wait to log until paths are set
+    external_log_path = "null";     // wait to log until paths are set
     program_name = prog;            // get program information (scarf or scc)
 }
 
-void ScarfLogger::enableIntLog(void){
-    enable_internal_log = true;
+void ScarfLogger::setEnableIntLog(bool input_internal){
+    enable_internal_log = input_internal;
 }
 
-void ScarfLogger::enableExtLog(void){
-    enable_external_log = true;
+void ScarfLogger::setEnableExtLog(bool input_external){
+    enable_external_log = input_external;
 }
 
-void ScarfLogger::setTerLogOff(bool input_terminal_off){
-    enable_terminal_log = false;
+void ScarfLogger::setEnableTerLog(bool input_terminal){
+    enable_terminal_log = input_terminal;
 }
 
-void ScarfLogger::setIntLogPath(const char* file_path){
+void ScarfLogger::setIntLogPath(std::string file_path){
     internal_log_path = file_path;
-    enableIntLog();
 }
 
-void ScarfLogger::setExtLogPath(const char* file_path){
+void ScarfLogger::setExtLogPath(std::string file_path){
     external_log_path = file_path;
-    enableExtLog();
 }
 
 void ScarfLogger::openLog(void){

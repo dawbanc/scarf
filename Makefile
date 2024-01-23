@@ -4,7 +4,7 @@ all:
 clean:
 	@rm -f scarf scarf-config-creator
 	@rm -f null
-	@rm -f scarf_log
+	@rm -f scarf_log internal_log
 	@rm -f scc_log
 
 build: build_scarf build_scarf_config_creator
@@ -21,5 +21,5 @@ build_scarf_config_creator build_scc:
 	-I${PWD}/src/common \
 	-o scarf-config-creator src/scarf_config_creator/scarf_config_creator.cpp
 
-run_scarf:
-	./scarf
+run:
+	./scarf -dummy_run -int_log internal_log

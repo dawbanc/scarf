@@ -31,8 +31,11 @@ int main(int argc, char *argv[]) {
         i++;
       } else if (strcmp(argv[i], "-debug") == 0) {
         cli_args.setDebug(true);
-      } else if (strcmp(argv[i], "-dummy_run")) {
+      } else if (strcmp(argv[i], "-dummy_run") == 0) {
         cli_args.setDummyRun(true);
+        cli_args.setDebug(true);
+        cli_args.setConfPath("config/simple.scf");
+        cli_args.setRawFilePath("simple.raw");
       } else if ((strcmp(argv[i], "--h") == 0) ||
                  (strcmp(argv[i], "--help") == 0) ||
                  (strcmp(argv[i], "-help") == 0) ||
@@ -59,14 +62,28 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  logger.printLineToAll(cli_args.toString());
-  if (cli_args.getDebug()){
-    logger.printLineToAll(cli_args.toString());
-  }
+
   // initialize logger
+  (cli_args.getQuiet()) ? logger.setEnableTerLog(false) : logger.setEnableTerLog(true);               // if quiet turn off terminal output
+  (cli_args.getIntLogPath() == "null") ? logger.setEnableIntLog(false) : logger.setEnableIntLog(true), logger.setIntLogPath(cli_args.getIntLogPath());                                                      // if internal log path isnt set dont enable it
+  if (cli_args.getExtLogPath() == "null") {
+    if (cli_args.getNoLog()) {
+      logger.setEnableExtLog(false);
+    } else {
+      logger.setExtLogPath("scarf_log");
+      logger.setEnableExtLog(true);
+    }
+  } else {
+    logger.setExtLogPath(cli_args.getExtLogPath());
+    logger.setEnableExtLog(true);
+  }
   logger.openLog();
-  logger.printLineToAll("Initiating logger");
   logger.printProgramVersion();
+  logger.printMessage("Initiating logger...\n", true, true, true);
+  if (cli_args.getDebug()){
+    logger.printLineToAll(cli_args.toString()); // if debug is enabled, show the cli config
+  }
+  logger.printMessage("Logger Initiated.\n", true, true, true);
 
   // get sd configuration
 

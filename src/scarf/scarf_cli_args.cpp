@@ -14,8 +14,8 @@ class ScarfCLIArgs {
         bool dummy_run = false;                     // -dummy_run
         bool help = false;                          // --help | --h | -help | -h
         std::string int_log_path = "null";          // -int_log <path>
-        std::string ext_log_path = "scarf_log";     // -log <path> (default is scarf_log)
-        bool no_log;
+        std::string ext_log_path = "null";     // -log <path> (default is scarf_log)
+        bool no_log = false;
         std::string raw_file_path = "null";         // -raw
         bool quiet = false;                         // -quiet
 
