@@ -135,11 +135,34 @@ std::string ScarfCLIArgs::boolToString(bool input_bool){
 std::string ScarfCLIArgs::toString(void){
     std::string temp;
     temp.append("CLI Argument Configuration:\n");
-    temp.append("-conf:\t");
+    temp.append("-conf:     \t");
     temp.append(getConfPath());
     temp.append("\n");
-    temp.append("-debug:\t");
+    temp.append("-debug:    \t");
     temp.append(boolToString(getDebug()));
+    temp.append("\n");
+    temp.append("-dummy_run:\t");
+    temp.append(boolToString(getDummyRun()));
+    temp.append("\n");
+    temp.append("-help:     \t");
+    temp.append(boolToString(getHelp()));
+    temp.append("\n");
+    temp.append("-int_log:  \t");
+    temp.append(getIntLogPath());
+    temp.append("\n");
+    temp.append("-log:      \t");
+    temp.append(getExtLogPath());
+    temp.append("\n");
+    temp.append("-no_log:   \t");
+    temp.append(boolToString(getNoLog()));
+    temp.append("\n");
+    temp.append("-raw:      \t");
+    temp.append(getRawFilePath());
+    temp.append("\n");
+    temp.append("-quiet:    \t");
+    temp.append(boolToString(getQuiet()));
+    temp.append("\n");
 
+    temp.append("\n");
     return temp;
 }

@@ -19,13 +19,14 @@ int main(int argc, char *argv[]) {
   // get command line args
   std::string unrecognized_args[64];
   int unrecognized_args_cnt = 0;
+  //logger.printMessage("argc = " + std::to_string(argc), true, false, false); //dxb_dbg
   if (argc <= 1) {
     logger.printError('F', 0, "There were no command line arguments specified. In the future this may automatically open the GUI, but as of right now it will quit.", true, false, false);
     exit(1);
   } else {
     // parse cmd line args
     for (int i = 1; i < argc; i++) {
-      if (strcmp(argv[i], "-conf")) {
+      if (strcmp(argv[i], "-conf") == 0) {
         cli_args.setConfPath(argv[i+1]);
         i++;
       } else if (strcmp(argv[i], "-debug") == 0) {

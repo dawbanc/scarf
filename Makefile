@@ -3,6 +3,7 @@ all:
 
 clean:
 	@rm -f scarf scarf-config-creator
+	@rm -f null
 	@rm -f scarf_log
 	@rm -f scc_log
 
