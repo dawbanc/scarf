@@ -5,11 +5,7 @@
 // Notes:
 // For changes view git history
 //----------------------------------------------------------------
-#include <cstring>
-#include <string>
-
-#include "scarf_cli_args.cpp"
-#include "scarf_logger.cpp"
+#include "scarf.h"
 
 int main(int argc, char *argv[]) {
   // construct Logger
@@ -86,7 +82,8 @@ int main(int argc, char *argv[]) {
   logger.printMessage("Logger Initiated.\n", false, true, false);
 
   // get sd configuration
-
+  //ScfReader scf_reader(logger);
+  //scf_reader.testLogger();
 
   // write the titles of the
 
