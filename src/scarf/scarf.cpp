@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
       } else if (strcmp(argv[i], "-dummy_run") == 0) {
         cli_args.setDummyRun(true);
         cli_args.setDebug(true);
-        cli_args.setConfPath("config/simple.scf");
+        cli_args.setConfPath("config/debug.scf");
         cli_args.setRawFilePath("simple.raw");
       } else if ((strcmp(argv[i], "--h") == 0) ||
                  (strcmp(argv[i], "--help") == 0) ||
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
         cli_args.setQuiet(true);
       } else {
         unrecognized_args[unrecognized_args_cnt] = argv[i];
-        logger.printError('E', 1, "unrecognized arguments detected: " + std::string(argv[i]), true, false, false);
+        logger.printError('E', 1, "unrecognized arguments detected: " + std::string(argv[i]) + " . Program will continue.", true, false, false);
         unrecognized_args_cnt++;
       }
     }
@@ -78,14 +78,15 @@ int main(int argc, char *argv[]) {
     logger.setEnableExtLog(true);
   }
   logger.openLog();
+  logger.printMessage("Initiating logger...\n", false, true, false);
   logger.printProgramVersion();
-  logger.printMessage("Initiating logger...\n", true, true, true);
   if (cli_args.getDebug()){
     logger.printLineToAll(cli_args.toString()); // if debug is enabled, show the cli config
   }
-  logger.printMessage("Logger Initiated.\n", true, true, true);
+  logger.printMessage("Logger Initiated.\n", false, true, false);
 
   // get sd configuration
+
 
   // write the titles of the
 
