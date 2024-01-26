@@ -5,23 +5,21 @@
 // Notes:
 // For changes view git history
 //----------------------------------------------------------------
-#include "scarf_logger.cpp"
-
 class ScfReader{
 
-    template <class logger>
-
-    //private:
+    private:
 
     public:
-        ScfReader(logger& logger_in);
+        ScarfLogger* logger;
+        ScfReader(void);
         void testLogger(void);
 };
 
-ScfReader::ScfReader(logger& logger_in){
-    logger = logger_in;
+ScfReader::ScfReader(void){
+
 }
+//void ScfReader::setLogger(ScarfLogger)
 
 void ScfReader::testLogger(void){
-    logger.printMessage("Test logger from scfReader", true, true, true);
+    logger->printMessage("Test logger from scfReader", true, true, true);
 }

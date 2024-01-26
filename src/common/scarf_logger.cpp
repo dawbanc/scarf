@@ -32,6 +32,7 @@ class ScarfLogger{
     public:
         std::string external_log_path;
 
+        ScarfLogger(void);
         ScarfLogger(std::string prog);
         void setEnableIntLog(bool input_internal);
         void setEnableExtLog(bool input_external);
@@ -45,6 +46,15 @@ class ScarfLogger{
         void printError(char severity, int error_number, std::string description, bool terminal, bool internal, bool external);
         void printMessage(std::string description, bool terminal, bool internal, bool external);
 };
+
+ScarfLogger::ScarfLogger(void){
+    enable_internal_log = false;    // default to off internal log
+    enable_external_log = false;    // default to off external log
+    enable_terminal_log = false;     // default to on terminal
+    internal_log_path = "null";     // wait to log until paths are set
+    external_log_path = "null";     // wait to log until paths are set
+    program_name = "null";            // get program information (scarf or scc)
+}
 
 ScarfLogger::ScarfLogger(std::string prog){
     enable_internal_log = true;    // default to off internal log

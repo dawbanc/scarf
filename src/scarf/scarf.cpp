@@ -82,8 +82,9 @@ int main(int argc, char *argv[]) {
   logger.printMessage("Logger Initiated.\n", false, true, false);
 
   // get sd configuration
-  //ScfReader scf_reader(logger);
-  //scf_reader.testLogger();
+  ScfReader scf_reader;
+  scf_reader.logger = &logger;
+  scf_reader.testLogger();
 
   // write the titles of the
 
