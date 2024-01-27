@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
       } else if (strcmp(argv[i], "-dummy_run") == 0) {
         cli_args.setDummyRun(true);
         cli_args.setDebug(true);
-        cli_args.setConfPath("config/debug.scf");
+        cli_args.setConfPath("config/debug_simple.scf");
         cli_args.setIntLogPath("scarf_debug");
         cli_args.setRawFilePath("simple.raw");
       } else if ((strcmp(argv[i], "--h") == 0) ||

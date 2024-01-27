@@ -22,4 +22,4 @@ build_scarf_config_creator build_scc:
 	-o scarf-config-creator src/scarf_config_creator/scarf_config_creator.cpp
 
 run:
-	./scarf -dummy_run -int_log internal_log
+	./scarf -dummy_run

@@ -11,14 +11,18 @@
 class ScfReader{
 
     private:
+        bool image_data = false;
+        bool data_points_in_config = false;
+        int num_data_points = 0;
+        int num_config_blocks = 0;
+        int num_data_blocks = 0;
+        int num_bytes_per_data_block = 0;
 
     public:
         ScarfLogger* logger;
         void readScfFile(std::string scf_file_path);
 
 };
-
-
 
 void ScfReader::readScfFile(std::string scf_file_path){
     // check to see if file exists
@@ -34,7 +38,14 @@ void ScfReader::readScfFile(std::string scf_file_path){
     if (config_file.is_open()) {
         while(config_file) {
             std::getline(config_file, scf_line);
-            logger->printMessage("ScfReader read: " + scf_line, false, true, false);
+            if (scf_line[0] == '#') {
+                logger->printMessage("ScfReader comment read : " + scf_line, false, true, false);
+            } else {
+                logger->printMessage("ScfReader line read    : " + scf_line, false, true, false);
+
+                // parse the line
+
+            }
         }
     }
 
