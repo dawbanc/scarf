@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
         cli_args.setDummyRun(true);
         cli_args.setDebug(true);
         cli_args.setConfPath("config/debug.scf");
+        cli_args.setIntLogPath("scarf_debug");
         cli_args.setRawFilePath("simple.raw");
       } else if ((strcmp(argv[i], "--h") == 0) ||
                  (strcmp(argv[i], "--help") == 0) ||
@@ -82,9 +83,9 @@ int main(int argc, char *argv[]) {
   logger.printMessage("Logger Initiated.\n", false, true, false);
 
   // get sd configuration
-  ScfReader scf_reader;
-  scf_reader.logger = &logger;
-  scf_reader.testLogger();
+  ScfReader* scf_reader = new ScfReader();
+  scf_reader->logger = &logger;
+  scf_reader->readScfFile(cli_args.getConfPath());
 
   // write the titles of the
 

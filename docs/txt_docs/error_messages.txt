@@ -13,5 +13,8 @@ scarf-0 : FATAL
 scarf-1 : ERROR
     There are unrecognized arguments passed via the command line to the program.
 
+scarf-2 : FATAL
+    The file path specified by "-conf" does not exist. Please ensure the path specified exists.
+
 scarf-5 : FATAL
     The log level was set incorrectly. This is an internal error, should not due to user error.

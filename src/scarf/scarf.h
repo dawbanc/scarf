@@ -1,3 +1,10 @@
+//----------------------------------------------------------------
+// Project:                scarf
+// Author:                 dawbanc
+// Date (yy/mm/dd):        24/01/26
+// Notes:
+// For changes view git history
+//----------------------------------------------------------------
 #include <cstring>
 #include <string>
 

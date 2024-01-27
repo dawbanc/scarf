@@ -4,7 +4,7 @@ all:
 clean:
 	@rm -f scarf scarf-config-creator
 	@rm -f null
-	@rm -f scarf_log internal_log
+	@rm -f scarf_log scarf_debug
 	@rm -f scc_log
 
 build: build_scarf build_scarf_config_creator
