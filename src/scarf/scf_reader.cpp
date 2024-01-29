@@ -38,6 +38,13 @@ void ScfReader::readScfFile(std::string scf_file_path){
     if (config_file.is_open()) {
         while(config_file) {
             std::getline(config_file, scf_line);
+            // remove whitespace ahead of actual info
+            bool has_preceeding_whitespace = true;
+            while (has_preceeding_whitespace){
+                if (scf_line[0] == ' '){
+                    scf_line.erase(0, 1);
+                }
+            }
             // change this to # detection and allow for comments after lines
             if (scf_line[0] == '#') {
                 logger->printMessage("ScfReader comment read : " + scf_line, false, true, false);
