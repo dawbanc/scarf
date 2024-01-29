@@ -38,6 +38,7 @@ void ScfReader::readScfFile(std::string scf_file_path){
     if (config_file.is_open()) {
         while(config_file) {
             std::getline(config_file, scf_line);
+            // change this to # detection and allow for comments after lines
             if (scf_line[0] == '#') {
                 logger->printMessage("ScfReader comment read : " + scf_line, false, true, false);
             } else {
