@@ -43,9 +43,18 @@ void ScfReader::readScfFile(std::string scf_file_path){
             while (has_preceeding_whitespace){
                 if (scf_line[0] == ' '){
                     scf_line.erase(0, 1);
+                } else {
+                    has_preceeding_whitespace = false;
+                }
+                if (scf_line.size() == 0 ) {
+                    has_preceeding_whitespace = false;
                 }
             }
             // change this to # detection and allow for comments after lines
+            if (scf_line.find('#') != std::string::npos) {
+                logger->printMessage("ScfReader line read    : " + scf_line, false, true, false);
+            }
+            /*
             if (scf_line[0] == '#') {
                 logger->printMessage("ScfReader comment read : " + scf_line, false, true, false);
             } else {
@@ -54,6 +63,7 @@ void ScfReader::readScfFile(std::string scf_file_path){
                 // parse the line
 
             }
+            */
         }
     }
 
