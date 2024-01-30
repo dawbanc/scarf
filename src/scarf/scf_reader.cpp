@@ -17,6 +17,17 @@ class ScfReader{
         int num_data_blocks = 0;
         int num_bytes_per_data_block = 0;
 
+        std::vector<std::string> scf_dedicated_keys = { "IMAGE_DATA",
+                                                        "DATA_POINTS_IN_CONFIG",
+                                                        "NUMBER_DATA_POINTS",
+                                                        "NUMBER_CONFIG_BLOCKS",
+                                                        "NUMBER_DATA_BLOCKS",
+                                                        "NUMBER_BYTES_PER_DATA_BLOCKS",
+                                                        "CONFIG_BLOCK",
+                                                        "DATA",
+                                                        "CSV_COL_LABELS",
+                                                        "CSV_COL_MATH"};
+
     public:
         ScarfLogger* logger;
         void readScfFile(std::string scf_file_path);
@@ -85,7 +96,11 @@ void ScfReader::readScfFile(std::string scf_file_path){
             }
             logger->printMessage(    "ScfReader line read    : " + scf_line, false, true, false);
 
-            // parse the string into a map
+            // need to see if the key is something we recognize
+
+            // if it is a key we recognize parse it https://g.co/bard/share/4af42dfc768e
+
+            // else put it in a map for constants (and print a message saying it is not a default option)
 
         }
     }
