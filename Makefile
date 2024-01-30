@@ -23,3 +23,6 @@ build_scarf_config_creator build_scc:
 
 run:
 	./scarf -dummy_run
+
+debug:
+	gdb scarf

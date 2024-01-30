@@ -5,7 +5,7 @@
 // Notes:
 // For changes view git history
 //----------------------------------------------------------------
-#include <iostream>
+#include "scarf_cli_args.h"
 
 class ScarfCLIArgs {
     private:

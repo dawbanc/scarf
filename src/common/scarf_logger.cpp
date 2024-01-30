@@ -5,11 +5,7 @@
 // Notes:
 // For changes view git history
 //----------------------------------------------------------------
-#include <iostream>
-#include <fstream>
-#include <string>
-
-#include "version.h"
+#include "scarf_logger.h"
 
 class ScarfLogger{
 

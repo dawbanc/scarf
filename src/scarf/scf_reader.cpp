@@ -5,8 +5,7 @@
 // Notes:
 // For changes view git history
 //----------------------------------------------------------------
-#include <filesystem>
-#include <iostream>
+#include "scarf_reader.h"
 
 class ScfReader{
 
@@ -41,24 +40,26 @@ void ScfReader::readScfFile(std::string scf_file_path){
             // remove whitespace ahead and behind of actual info
             bool has_preceeding_whitespace = true;
             while (has_preceeding_whitespace){
-                if (scf_line[0] == ' '){
-                    scf_line.erase(0, 1);
+                if (scf_line.empty()) {
+                    has_preceeding_whitespace = false;
                 } else {
-                    has_preceeding_whitespace = false;
-                }
-                if (scf_line.size() == 0 ) {
-                    has_preceeding_whitespace = false;
+                    if (scf_line[0] == ' '){
+                        scf_line.erase(0, 1);
+                    } else {
+                        has_preceeding_whitespace = false;
+                    }
                 }
             }
             bool has_foregoing_whitespace = true;
             while (has_foregoing_whitespace) {
-                if (scf_line.back() == ' ') {
-                    scf_line.pop_back();
+                if (scf_line.empty()) {
+                    has_foregoing_whitespace = false;
                 } else {
-                    has_foregoing_whitespace = false;
-                }
-                if (scf_line.size() == 0) {
-                    has_foregoing_whitespace = false;
+                    if (scf_line.back() == ' ') {
+                        scf_line.erase(scf_line.size() - 1);
+                    } else {
+                        has_foregoing_whitespace = false;
+                    }
                 }
             }
 
@@ -75,12 +76,16 @@ void ScfReader::readScfFile(std::string scf_file_path){
                 comment = scf_line.substr(hash_tag_position);
                 scf_line.assign(temp_line);
             }
-            logger->printMessage(    "ScfReader line read    : " + scf_line, false, true, false);
+
             if (!comment.empty()) {
                 logger->printMessage("ScfReader comment read : " + comment, false, true, false);
             }
+            if (scf_line.empty()) {
+                continue;
+            }
+            logger->printMessage(    "ScfReader line read    : " + scf_line, false, true, false);
 
-            // parse the string into
+            // parse the string into a map
 
         }
     }
