@@ -11,7 +11,7 @@ NUMBER_DATA_BLOCKS=1;
 NUMBER_BYTES_PER_DATA_BLOCK=512;
 
 # Other constants
-# CONFIG1=type(value);
+# CONFIG1=type(value); # This is a constant
 
 # if there is a config block for constants show them here, if datapoint counter use DATAPOINT_0 (LSB) - DATAPOINT_X (MSB)
 # CONFIG_BLOCK_0={BYTE0_CONSTANT, BYTE1_CONSTANT};

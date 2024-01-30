@@ -50,20 +50,25 @@ void ScfReader::readScfFile(std::string scf_file_path){
                     has_preceeding_whitespace = false;
                 }
             }
-            // change this to # detection and allow for comments after lines
+
+            // detect if the line is empty
+            if (scf_line.empty()) {
+                continue;
+            }
+
+            // comments detection
+            std::string comment;
             if (scf_line.find('#') != std::string::npos) {
-                logger->printMessage("ScfReader line read    : " + scf_line, false, true, false);
+                size_t hash_tag_position = scf_line.find('#');
+                std::string temp_line = scf_line.substr(0, hash_tag_position);
+                comment = scf_line.substr(hash_tag_position);
+                scf_line.assign(temp_line);
             }
-            /*
-            if (scf_line[0] == '#') {
-                logger->printMessage("ScfReader comment read : " + scf_line, false, true, false);
-            } else {
-                logger->printMessage("ScfReader line read    : " + scf_line, false, true, false);
-
-                // parse the line
-
+            logger->printMessage(    "ScfReader line read    : " + scf_line, false, true, false);
+            if (!comment.empty()) {
+                logger->printMessage("ScfReader comment read : " + comment, false, true, false);
             }
-            */
+
         }
     }
 
