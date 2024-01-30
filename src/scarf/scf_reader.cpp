@@ -38,7 +38,7 @@ void ScfReader::readScfFile(std::string scf_file_path){
     if (config_file.is_open()) {
         while(config_file) {
             std::getline(config_file, scf_line);
-            // remove whitespace ahead of actual info
+            // remove whitespace ahead and behind of actual info
             bool has_preceeding_whitespace = true;
             while (has_preceeding_whitespace){
                 if (scf_line[0] == ' '){
@@ -48,6 +48,17 @@ void ScfReader::readScfFile(std::string scf_file_path){
                 }
                 if (scf_line.size() == 0 ) {
                     has_preceeding_whitespace = false;
+                }
+            }
+            bool has_foregoing_whitespace = true;
+            while (has_foregoing_whitespace) {
+                if (scf_line.back() == ' ') {
+                    scf_line.pop_back();
+                } else {
+                    has_foregoing_whitespace = false;
+                }
+                if (scf_line.size() == 0) {
+                    has_foregoing_whitespace = false;
                 }
             }
 
@@ -68,6 +79,8 @@ void ScfReader::readScfFile(std::string scf_file_path){
             if (!comment.empty()) {
                 logger->printMessage("ScfReader comment read : " + comment, false, true, false);
             }
+
+            // parse the string into
 
         }
     }
