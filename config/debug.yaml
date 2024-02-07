@@ -1,0 +1,51 @@
+# @author: DawsonXBancroft
+
+COL_LABELS:
+  COL_0     : "COL0"
+  COL_1     : "COL1"
+  COL_2     : "COL2"
+  COL_3     : "COL3"
+
+COL_VARS:
+  COL_0     : "COL0_OUT"
+  COL_1     : "COL1_OUT"
+  COL_2     : "COL2_OUT"
+  COL_3     : "COL3_OUT"
+
+SDCARD_SETUP:
+  # ALL OF THESE PROBABLY NEED TO BE SET
+  IMAGE_DATA            : False
+  # only accepts true or false (hasn't been tested)
+  DATA_POINTS_IN_CONFIG : False
+  # IF TRUE CFG_MATH_0 NEEDS TO HAVE A LABEL "DATAPOINTS"
+  NUM_CONFIG_BLOCKS     : 0
+  # number of configuration blocks at beginning of sd card
+  # 0 - inf (typically has number of data points) needs to be set to int
+  NUM_DATA_BLOCKS       : 1
+  # number of blocks per data point 1 - inf
+  NUM_BYTES_DB_0        : 8
+  # number of bytes needed to be read in from that sd card block
+  NUM_DB_MATH_BLOCKS    : 1
+  # set number of DB_MATH BLOCKS...usually should be one
+  NUM_CFG_MATH_BLOCKS   : 0
+  # set number of CFG MATH BLOCKS...usually 0 or 1
+
+CFG_0: # IF THERE IS CONFIGURATION DATA BLOCKS ON SD CARD
+
+DB_0:
+  BYTE_0    : "BYTE_0_IN"
+  BYTE_1    : "BYTE_1_IN"
+  BYTE_2    : "BYTE_2_IN"
+  BYTE_3    : "BYTE_3_IN"
+  BYTE_4    : "BYTE_4_IN"
+  BYTE_5    : "BYTE_5_IN"
+  BYTE_6    : "BYTE_6_IN"
+  BYTE_7    : "BYTE_7_IN"
+
+CFG_MATH_0: # IF THERE IS CONFIGURATION MATH THAT IS NEEDED TO BE DONE
+
+DB_MATH_0:
+  COL0_OUT : "+,BYTE_0_IN,BYTE_7_IN"
+  COL1_OUT : "-,BYTE_1_IN,BYTE_6_IN"
+  COL2_OUT : "*,(>>4,BYTE_4_IN),BYTE_3_IN"
+  COL3_OUT : "/,BYTE_5_IN,(<<4,BYTE_2_IN)"
