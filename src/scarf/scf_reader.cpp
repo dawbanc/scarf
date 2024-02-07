@@ -45,9 +45,11 @@ void ScfReader::readScfFile(std::string scf_file_path){
     std::ifstream config_file;
     config_file.open(scf_file_path);
     std::string scf_line;
+    int line_cnt = 0;
     if (config_file.is_open()) {
         while(config_file) {
             std::getline(config_file, scf_line);
+            line_cnt++;
             // remove whitespace ahead and behind of actual info
             bool has_preceeding_whitespace = true;
             while (has_preceeding_whitespace){
@@ -97,6 +99,26 @@ void ScfReader::readScfFile(std::string scf_file_path){
             logger->printMessage(    "ScfReader line read    : " + scf_line, false, true, false);
 
             // need to see if the key is something we recognize
+            std::string key, value;
+            if (scf_line.find('=') == std::string::npos) {
+                logger->printError('E', 4, scf_file_path + "(" + std::to_string(line_cnt) + "): Syntax error: No equal sign detected.", true, true, true);
+                continue;
+            } else {
+                if (scf_line.find(';') == std::string::npos) {
+                    logger->printError('E', 4, scf_file_path + "(" + std::to_string(line_cnt) + "): Syntax error: No semicolon sign detected.", true, true, true);
+                    continue;
+                }
+                std::string temp_line;
+                size_t equal_position = scf_line.find('=');
+                size_t semi_colon_position = scf_line.find(';');
+                temp_line = scf_line.substr(0, semi_colon_position);
+                key = temp_line.substr(0, equal_position);
+                value = temp_line.substr(equal_position+1);
+            }
+            logger->printMessage("ScfReader: key parsed  : " + key, false, true, false);
+            logger->printMessage("ScfReader: value parsed: " + value, false, true, false);
+
+
 
             // if it is a key we recognize parse it https://g.co/bard/share/4af42dfc768e
 

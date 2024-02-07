@@ -16,5 +16,11 @@ scarf-1 : ERROR
 scarf-2 : FATAL
     The file path specified by "-conf" does not exist. Please ensure the path specified exists.
 
+scarf-3 : WARNING
+    A line in the configuration file has an unrecognized variable. It will be used as a constant.
+
+scarf-4 : ERROR
+    Unrecognized syntax in configuration file.
+
 scarf-5 : FATAL
     The log level was set incorrectly. This is an internal error, should not due to user error.
