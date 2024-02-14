@@ -6,6 +6,7 @@
 // For changes view git history
 //----------------------------------------------------------------
 #include "scarf_reader.h"
+#include <algorithm>
 
 class ScfReader{
 
@@ -28,11 +29,18 @@ class ScfReader{
                                                         "CSV_COL_LABELS",
                                                         "CSV_COL_MATH"};
 
+        bool to_bool(std::string s);
+
     public:
         ScarfLogger* logger;
         void readScfFile(std::string scf_file_path);
 
 };
+
+bool ScfReader::to_bool(std::string s) {
+    std::transform(s.begin(), s.end(), s.begin(), ::tolower);
+    return (s == "true");
+}
 
 void ScfReader::readScfFile(std::string scf_file_path){
     // check to see if file exists
@@ -118,11 +126,23 @@ void ScfReader::readScfFile(std::string scf_file_path){
             logger->printMessage("ScfReader: key parsed  : " + key, false, true, false);
             logger->printMessage("ScfReader: value parsed: " + value, false, true, false);
 
-
-
             // if it is a key we recognize parse it https://g.co/bard/share/4af42dfc768e
+            bool recognized_key = std::any_of(scf_dedicated_keys.begin(), scf_dedicated_keys.end(),
+                                        [&key](const std::string& word) {
+                                            return word == key;
+                                        });
 
+            if (recognized_key) {
+                if (key.compare("IMAGE_DATA") == 0){
+                    image_data = to_bool(value);
+                    logger->printMessage("ScfReader: img data set: " + value, false, true, false);
+                }
+
+            } else {
             // else put it in a map for constants (and print a message saying it is not a default option)
+
+            }
+
 
         }
     }
