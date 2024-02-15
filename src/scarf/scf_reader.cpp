@@ -33,6 +33,7 @@ class ScfReader{
                                                         "CSV_COL_MATH"};
 
         bool to_bool(std::string s);
+        int to_integer(std::string s)
 
     public:
         ScarfLogger* logger;
@@ -50,6 +51,17 @@ bool ScfReader::to_bool(std::string s) {
         logger->printError('E', 6, scf_file_path + "(" + std::to_string(line_cnt) + "): A configuration variable is a wrong type. A default value will be used.", true, true, true);
         return false;
     }
+}
+
+int ScfReader::to_integer(std::string s) {
+    int num = 0;
+    try {
+        num = std::stoi(s);
+    } catch (const std::invalid_argument& e) {
+        logger->printError('E', 6, scf_file_path + "(" + std::to_string(line_cnt) + "): A configuration variable is a wrong type. A default value will be used.", true, true, true);
+        num = 0;
+    }
+    return num;
 }
 
 void ScfReader::readScfFile(std::string scf_file_path_in){
@@ -150,7 +162,7 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
                     data_points_in_config = to_bool(value);
                     logger->printMessage("ScfReader: dp in config: " + value, false, true, false);
                 } else if (key.compare("NUMBER_DATA_POINTS") == 0) {
-                    num_data_points = stoi(value);
+                    num_data_points = to_integer(value);
                     logger->printMessage("ScfReader: num of db   : " + std::to_string(num_data_points), false, true, false);
                 }
 
