@@ -149,6 +149,9 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
                 } else if (key.compare("DATA_POINTS_IN_CONFIG") == 0) {
                     data_points_in_config = to_bool(value);
                     logger->printMessage("ScfReader: dp in config: " + value, false, true, false);
+                } else if (key.compare("NUMBER_DATA_POINTS") == 0) {
+                    num_data_points = stoi(value);
+                    logger->printMessage("ScfReader: num of db   : " + std::to_string(num_data_points), false, true, false);
                 }
 
             } else {
