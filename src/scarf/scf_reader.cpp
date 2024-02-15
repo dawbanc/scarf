@@ -18,6 +18,9 @@ class ScfReader{
         int num_data_blocks = 0;
         int num_bytes_per_data_block = 0;
 
+        std::string scf_file_path = "null";
+        int line_cnt = 0;
+
         std::vector<std::string> scf_dedicated_keys = { "IMAGE_DATA",
                                                         "DATA_POINTS_IN_CONFIG",
                                                         "NUMBER_DATA_POINTS",
@@ -39,21 +42,28 @@ class ScfReader{
 
 bool ScfReader::to_bool(std::string s) {
     std::transform(s.begin(), s.end(), s.begin(), ::tolower);
-    return (s == "true");
+    if (s == "true"){
+        return true;
+    } else if (s == "false") {
+        return false;
+    } else {
+        logger->printError('E', 6, scf_file_path + "(" + std::to_string(line_cnt) + "): A configuration variable is a wrong type. A default value will be used.", true, true, true);
+        return false;
+    }
 }
 
-void ScfReader::readScfFile(std::string scf_file_path){
+void ScfReader::readScfFile(std::string scf_file_path_in){
     // check to see if file exists
     logger->printMessage("ScfReader starting...\n", false, true, false);
     if (!std::filesystem::exists(scf_file_path)){
         logger->printError('F', 2, "The file path specified by \"-conf\" does not exist.", true, true, true);
     }
+    scf_file_path = scf_file_path_in;
 
     // read in the lines
     std::ifstream config_file;
     config_file.open(scf_file_path);
     std::string scf_line;
-    int line_cnt = 0;
     if (config_file.is_open()) {
         while(config_file) {
             std::getline(config_file, scf_line);
@@ -136,6 +146,9 @@ void ScfReader::readScfFile(std::string scf_file_path){
                 if (key.compare("IMAGE_DATA") == 0){
                     image_data = to_bool(value);
                     logger->printMessage("ScfReader: img data set: " + value, false, true, false);
+                } else if (key.compare("DATA_POINTS_IN_CONFIG") == 0) {
+                    data_points_in_config = to_bool(value);
+                    logger->printMessage("ScfReader: dp in config: " + value, false, true, false);
                 }
 
             } else {
