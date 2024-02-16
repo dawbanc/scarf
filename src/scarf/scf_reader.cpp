@@ -166,6 +166,26 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
                 } else if (key.compare("NUMBER_CONFIG_BLOCKS") == 0) {
                     num_config_blocks = to_integer(value);
                     logger->printMessage("ScfReader: num cfg blks: " + std::to_string(num_config_blocks), false, true, false);
+                } else if (key.compare("NUMBER_DATA_BLOCKS") == 0) {
+                    num_data_blocks = to_integer(value);
+                    logger->printMessage("ScfReader: num data blk: " + std::to_string(num_data_blocks), false, true, false);
+                } else if (key.compare("NUMBER_BYTES_PER_DATA_BLOCKS") == 0) {
+                    num_bytes_per_data_block = to_integer(value);
+                    logger->printMessage("ScfReader: bytes / dblk: " + std::to_string(num_bytes_per_data_block), false, true, false);
+                } else if (key.compare("CONFIG_BLOCK") == 0) {
+                    // TODO: add config block label parsing
+                    logger->printMessage("ScfReader: cfg blk pars: ", false, true, false); // TODO: add boolean return value from config parsing and print it
+                } else if (key.compare("DATA") == 0) {
+                    // TODO: add data block label parsing
+                    logger->printMessage("ScfReader: data blk par: ", false, true, false); // TODO: add boolean return value from data parsing and print it
+                } else if (key.compare("CSV_COL_LABELS") == 0) {
+                    // TODO: add csv label parsing
+                    logger->printMessage("ScfReader: csv head par: ", false, true, false); // TODO: add boolean return value from csv label parsing and print it
+                } else if (key.compare("CSV_COL_MATH") == 0) {
+                    // TODO: add csv col math parsing
+                    logger->printMessage("ScfReader: csv col pars: ", false, true, false); // TODO: add boolean return value from csv column math parsing and print it
+                } else {
+                    logger->printError('F', 7, "ScfReader: Unable to parse:" + key + "\n                with value:" + value, true, true, true);
                 }
 
             } else {

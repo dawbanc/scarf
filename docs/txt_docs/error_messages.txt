@@ -27,3 +27,6 @@ scarf-5 : FATAL
 
 scarf-6 : ERROR
     A configuration variable is a wrong type. A default value will be used.
+
+scarf-7 : FATAL
+    Internal error in scfReader, there was a recognized value but it wasn't able to be parsed.
