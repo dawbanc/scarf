@@ -6,7 +6,6 @@
 // For changes view git history
 //----------------------------------------------------------------
 #include "scarf_reader.h"
-#include <algorithm>
 
 class ScfReader{
 
@@ -33,7 +32,7 @@ class ScfReader{
                                                         "CSV_COL_MATH"};
 
         bool to_bool(std::string s);
-        int to_integer(std::string s)
+        int to_integer(std::string s);
 
     public:
         ScarfLogger* logger;
@@ -164,6 +163,9 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
                 } else if (key.compare("NUMBER_DATA_POINTS") == 0) {
                     num_data_points = to_integer(value);
                     logger->printMessage("ScfReader: num of db   : " + std::to_string(num_data_points), false, true, false);
+                } else if (key.compare("NUMBER_CONFIG_BLOCKS") == 0) {
+                    num_config_blocks = to_integer(value);
+                    logger->printMessage("ScfReader: num cfg blks: " + std::to_string(num_config_blocks), false, true, false);
                 }
 
             } else {
