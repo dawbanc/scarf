@@ -17,23 +17,30 @@ class ScfReader{
         int num_data_blocks = 0;
         int num_bytes_per_data_block = 0;
 
+        std::map<std::string, std::string> configuration_value_m;
+
+
         std::string scf_file_path = "null";
         int line_cnt = 0;
 
+        // set of keys to get from the configuration file
         std::vector<std::string> scf_dedicated_keys = { "IMAGE_DATA",
                                                         "DATA_POINTS_IN_CONFIG",
                                                         "NUMBER_DATA_POINTS",
                                                         "NUMBER_CONFIG_BLOCKS",
                                                         "NUMBER_DATA_BLOCKS",
                                                         "NUMBER_BYTES_PER_DATA_BLOCKS",
-                                                        "CONFIG_BLOCK",
+                                                        "CONFIG",
                                                         "DATA",
                                                         "CSV_COL_LABELS",
                                                         "CSV_COL_MATH"};
 
+
+
         bool to_bool(std::string s);
         int to_integer(std::string s);
 
+        bool parseConfigValues(std::string input_value);
     public:
         ScarfLogger* logger;
         void readScfFile(std::string scf_file_path);
@@ -63,13 +70,22 @@ int ScfReader::to_integer(std::string s) {
     return num;
 }
 
+bool ScfReader::parseConfigValues(std::string input_value){
+
+
+
+    return true;
+}
+
 void ScfReader::readScfFile(std::string scf_file_path_in){
+    scf_file_path = scf_file_path_in;
+
     // check to see if file exists
     logger->printMessage("ScfReader starting...\n", false, true, false);
     if (!std::filesystem::exists(scf_file_path)){
-        logger->printError('F', 2, "The file path specified by \"-conf\" does not exist.", true, true, true);
+        logger->printError('F', 2, "The file path specified by \"-conf\" does not exist:" + scf_file_path, true, true, true);
     }
-    scf_file_path = scf_file_path_in;
+
 
     // read in the lines
     std::ifstream config_file;
@@ -172,7 +188,7 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
                 } else if (key.compare("NUMBER_BYTES_PER_DATA_BLOCKS") == 0) {
                     num_bytes_per_data_block = to_integer(value);
                     logger->printMessage("ScfReader: bytes / dblk: " + std::to_string(num_bytes_per_data_block), false, true, false);
-                } else if (key.compare("CONFIG_BLOCK") == 0) {
+                } else if (key.compare("CONFIG") == 0) {
                     // TODO: add config block label parsing
                     logger->printMessage("ScfReader: cfg blk pars: ", false, true, false); // TODO: add boolean return value from config parsing and print it
                 } else if (key.compare("DATA") == 0) {

@@ -3,5 +3,5 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <map>
 
-#include "scarf_logger.cpp"
