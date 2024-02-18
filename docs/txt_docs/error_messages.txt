@@ -30,3 +30,7 @@ scarf-6 : ERROR
 
 scarf-7 : FATAL
     Internal error in scfReader, there was a recognized value but it wasn't able to be parsed.
+
+scarf-8 : FATAL
+    Configuration value contains a syntax error. Incorrect processing may occur. IE: DATA missing '{'.
+
