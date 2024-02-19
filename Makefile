@@ -21,6 +21,13 @@ build_scarf_config_creator build_scc:
 	-I${PWD}/src/common \
 	-o scarf-config-creator src/scarf_config_creator/scarf_config_creator.cpp
 
+build_debug: build_scarf_debug
+
+build_scarf_debug:
+	g++ -g -Wall -fPIC \
+	-I${PWD}/src/scarf \
+	-I${PWD}/src/common \
+	-o scarf src/scarf/scarf.cpp
 run:
 	./scarf -dummy_run
 

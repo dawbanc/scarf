@@ -20,6 +20,7 @@ class ScarfLogger{
 
 
     private:
+        // methods to print to various output streams
         void printLineToTerminal(std::string line);
         void printLineToInternalLog(std::string line);
         void printLineToExternalLog(std::string line);
@@ -35,11 +36,17 @@ class ScarfLogger{
         void setEnableTerLog(bool input_terminal);
         void setIntLogPath(std::string file_path);
         void setExtLogPath(std::string file_path);
+        // opens the deisred streams
         void openLog(void);
+        // closes the desired streams
         void closeLog(void);
+        // prints a line to all streams
         void printLineToAll(std::string line);
+        // prints the program information
         void printProgramVersion(void);
+        // prints a warning, error, or fatal message
         void printError(char severity, int error_number, std::string description, bool terminal, bool internal, bool external);
+        // prints a general message
         void printMessage(std::string description, bool terminal, bool internal, bool external);
 };
 
