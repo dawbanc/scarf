@@ -18,7 +18,7 @@ class ScfReader{
         int num_bytes_per_data_block = 0;
 
         std::map<std::string, std::string> configuration_value_m;
-
+        std::map<std::string, std::string> data_value_m;
 
         std::string scf_file_path = "null";
         int line_cnt = 0;
@@ -124,8 +124,8 @@ bool ScfReader::parseDataValues(std::string input_string){
         // create a string key IE CONFIG0_BYTE0
         std::string key = "DATA" + std::to_string(block) + "_BYTE" + std::to_string(byte);
         // add to map
-        configuration_value_m[key] = value;
-        logger->printMessage("ScfReader: PARSE DATA  : configuration_value_m[" + key + "] = " + value, false, true, false);
+        data_value_m[key] = value;
+        logger->printMessage("ScfReader: PARSE DATA  :          data_value_m[" + key + "] = " + value, false, true, false);
         // increment counters
         if (byte == 511) {
             block++;
