@@ -22,6 +22,8 @@ class ScfReader{
         std::map<std::string, std::string> csv_labels_m;
         std::map<std::string, std::string> csv_math_m;
 
+        std::map<std::string, std::string> constants_m;
+
 
         std::string scf_file_path = "null";
         int line_cnt = 0;
@@ -180,7 +182,7 @@ bool ScfReader::parseCsvMathValues(std::string input_string) {
     input_string.erase(0, 1); // remove {
     input_string.erase(input_string.size()-1); // remove }
 
-    //parse the math
+    //parse the math even if parenthesis are involved
     std::stack<char> parenthesis_stack;
     std::string current_key;
     std::string current_value;
@@ -354,13 +356,25 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
                     logger->printError('F', 7, "ScfReader: Unable to parse:" + key + "\n                with value:" + value, true, true, true);
                 }
             } else {
-            // else put it in a map for constants (and print a message saying it is not a default option)
-
+                // else put it in a map for constants (and print a message saying it is not a default option)
+                logger->printError('W', 10, "ScfReader: Unrecognized option :" + key + "\n                with value:" + value + \
+                                            "                                Adding to the constants map.", true, true, true);
+                constants_m[key] = value;
             }
-
-            // some error checking (IE number of data blocks is 0 or number of config blocks is 0 and CONFIG is defined)
         }
     }
-
-
+    // some error checking (IE number of data blocks is 0 or number of config blocks is 0 and CONFIG is defined)
+    if (num_data_points == 0) {
+        logger->printError('F', 11, "ScfReader: num_data_points is 0 : Either NUMBER_DATA_POINTS is undefined in the config file or it is set to 0. Please define this as a number greater than 0.", true, true, true);
+    }
+    if (csv_labels_m.size() == 0) {
+        logger->printError('F', 12, "ScfReader: CSV_COL_LABELS is undefined : Please define CSV_COL_LABELS in the configuration file.", true, true, true);
+    }
+    if (csv_math_m.size() == 0) {
+        logger->printError('F', 14, "ScfReader: CSV_COL_MATH is undefined : Please define CSV_COL_MATH in the configuration file.", true, true, true);
+    }
+    if ((num_config_blocks == 0) && (configuration_value_m.size() != 0)) {
+        logger->printError('E', 15, "ScfReader: NUMBER_CONFIG_BLOCKS is set to 0, but CONFIG has values.", true, true, true);
+    }
+    logger->printMessage("ScfReader: config file parsed: " + scf_file_path_in, true, true, true);
 }

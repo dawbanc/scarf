@@ -36,3 +36,18 @@ scarf-8 : FATAL
 
 scarf-9 : FATAL
     Parenthesis mismatch in the configuration file. Please double check the value specified.
+
+scarf-10 : WARNING
+    Just stating that a value in the configuration file isn't recognized so it will add that key-value pair to the constants map.
+
+scarf-11 : FATAL
+    NUMBER_DATA_POINTS is set to 0 in the config file or it isn't defined at all. Fix this in the config before continuing.
+
+scarf-12 : FATAL
+    CSV_COL_LABELS is not defined in the configuration file. Please fix this before continuing.
+
+scarf-14 : FATAL
+    CSV_COL_MATH is not defined in the configuration file. Please fix this before continuing.
+
+scarf-15 : ERROR
+    CONFIG is set but NUMBER_CONFIG_BLOCKS is set to 0. This may lead to errors later. Please fix as soon as possible.
