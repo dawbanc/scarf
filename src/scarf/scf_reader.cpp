@@ -19,6 +19,7 @@ class ScfReader{
 
         std::map<std::string, std::string> configuration_value_m;
         std::map<std::string, std::string> data_value_m;
+        std::map<std::string, std::string> csv_labels_m;
 
         std::string scf_file_path = "null";
         int line_cnt = 0;
@@ -40,8 +41,9 @@ class ScfReader{
         bool to_bool(std::string s);
         int to_integer(std::string s);
 
-        bool parseConfigValues(std::string input_value);
+        bool parseConfigValues(std::string input_string);
         bool parseDataValues(std::string input_string);
+        bool parseCsvLabelValues(std::string input_string);
     public:
         ScarfLogger* logger;
         void readScfFile(std::string scf_file_path);
@@ -133,6 +135,33 @@ bool ScfReader::parseDataValues(std::string input_string){
         } else {
             byte++;
         }
+    }
+    return true;
+}
+
+bool ScfReader::parseCsvLabelValues(std::string input_string){
+    // lets find and remove the {}
+    if (input_string.find('{') == std::string::npos) {
+        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'{\'", true, true, true);
+    }
+    if (input_string.find('}') == std::string::npos) {
+        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'}\'", true, true, true);
+    }
+    input_string.erase(0, 1); // remove {
+    input_string.erase(input_string.size()-1); // remove }
+
+    // split the string into values
+    std::stringstream ss(input_string);
+    std::string value;
+    int column_number = 0;
+    while (std::getline(ss, value, ',')) {
+        // create a string key IE CONFIG0_BYTE0
+        std::string key = "COL_HEADER_" + std::to_string(column_number);
+        // add to map
+        csv_labels_m[key] = value;
+        logger->printMessage("ScfReader:PARSE CSVHEAD:          data_value_m[" + key + "] = " + value, false, true, false);
+        // increment counters
+        column_number++;
     }
     return true;
 }
@@ -259,8 +288,8 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
                     logger->printMessage("ScfReader: data blk par: " + std::to_string(data_parse_status), false, true, false);
                 } else if (key.compare("CSV_COL_LABELS") == 0) {
                     bool csv_col_labels_parse_status = false;
-                    // TODO: add csv label parsing
-                    logger->printMessage("ScfReader: csv head par: " + std::to_string(csv_col_labels_parse_status), false, true, false); // TODO: add boolean return value from csv label parsing and print it
+                    csv_col_labels_parse_status = parseCsvLabelValues(value);
+                    logger->printMessage("ScfReader: csv head par: " + std::to_string(csv_col_labels_parse_status), false, true, false);
                 } else if (key.compare("CSV_COL_MATH") == 0) {
                     bool csv_col_math_parse_status = false;
                     // TODO: add csv col math parsing
