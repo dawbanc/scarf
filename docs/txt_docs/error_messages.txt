@@ -34,3 +34,5 @@ scarf-7 : FATAL
 scarf-8 : FATAL
     Configuration value contains a syntax error. Incorrect processing may occur. IE: DATA missing '{'.
 
+scarf-9 : FATAL
+    Parenthesis mismatch in the configuration file. Please double check the value specified.

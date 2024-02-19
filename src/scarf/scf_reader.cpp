@@ -20,6 +20,8 @@ class ScfReader{
         std::map<std::string, std::string> configuration_value_m;
         std::map<std::string, std::string> data_value_m;
         std::map<std::string, std::string> csv_labels_m;
+        std::map<std::string, std::string> csv_math_m;
+
 
         std::string scf_file_path = "null";
         int line_cnt = 0;
@@ -44,6 +46,7 @@ class ScfReader{
         bool parseConfigValues(std::string input_string);
         bool parseDataValues(std::string input_string);
         bool parseCsvLabelValues(std::string input_string);
+        bool parseCsvMathValues(std::string input_string);
     public:
         ScarfLogger* logger;
         void readScfFile(std::string scf_file_path);
@@ -163,6 +166,59 @@ bool ScfReader::parseCsvLabelValues(std::string input_string){
         // increment counters
         column_number++;
     }
+    return true;
+}
+
+bool ScfReader::parseCsvMathValues(std::string input_string) {
+    // lets find and remove the {}
+    if (input_string.find('{') == std::string::npos) {
+        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'{\'", true, true, true);
+    }
+    if (input_string.find('}') == std::string::npos) {
+        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'}\'", true, true, true);
+    }
+    input_string.erase(0, 1); // remove {
+    input_string.erase(input_string.size()-1); // remove }
+
+    //parse the math
+    std::stack<char> parenthesis_stack;
+    std::string current_key;
+    std::string current_value;
+    int value_cnt = 0;
+
+    for (char c : input_string) {
+        if (c == '(') {
+            parenthesis_stack.push(c);
+        } else if (c == ')') {
+            if (parenthesis_stack.empty()) {
+                // THROW FATAL MISMATCHED PARETHESIS IN MATH CONFIG ITEM NUM
+                logger->printError('F', 9, "ScfReader: CSV_COL_MATH mismatched parenthesis after " + std::to_string(value_cnt) + " commas.", true, true, true);
+            }
+            parenthesis_stack.pop();
+        } else if (c == ',' && parenthesis_stack.empty()) {
+            // create key
+            // insert in map
+            // clear current value
+            current_key = "COL" + std::to_string(value_cnt);
+            csv_math_m[current_key] = current_value;
+            logger->printMessage("ScfReader:PARSE CSVMATH:            csv_math_m[" + current_key + "] = " + current_value, false, true, false);
+            current_value.clear();
+            current_key.clear();
+            value_cnt++;
+        } else {
+            current_value += c;
+        }
+    }
+
+    if (!current_value.empty()) {
+        // if current_value isn't  empty then add it to the map
+        current_key = "COL" + std::to_string(value_cnt);
+        csv_math_m[current_key] = current_value;
+        current_value.clear();
+        current_key.clear();
+        value_cnt++;
+    }
+    logger->printMessage("ScfReader:PARSE CSVMATH: sucessfully read in " + std::to_string(value_cnt) + " values", false, true, false);
     return true;
 }
 
@@ -292,12 +348,11 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
                     logger->printMessage("ScfReader: csv head par: " + std::to_string(csv_col_labels_parse_status), false, true, false);
                 } else if (key.compare("CSV_COL_MATH") == 0) {
                     bool csv_col_math_parse_status = false;
-                    // TODO: add csv col math parsing
-                    logger->printMessage("ScfReader: csv col pars: " + std::to_string(csv_col_math_parse_status), false, true, false); // TODO: add boolean return value from csv column math parsing and print it
+                    csv_col_math_parse_status = parseCsvMathValues(value);
+                    logger->printMessage("ScfReader: csv col pars: " + std::to_string(csv_col_math_parse_status), false, true, false);
                 } else {
                     logger->printError('F', 7, "ScfReader: Unable to parse:" + key + "\n                with value:" + value, true, true, true);
                 }
-
             } else {
             // else put it in a map for constants (and print a message saying it is not a default option)
 
