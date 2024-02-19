@@ -41,6 +41,7 @@ class ScfReader{
         int to_integer(std::string s);
 
         bool parseConfigValues(std::string input_value);
+        bool parseDataValues(std::string input_string);
     public:
         ScarfLogger* logger;
         void readScfFile(std::string scf_file_path);
@@ -84,12 +85,55 @@ bool ScfReader::parseConfigValues(std::string input_string){
     // split the string into values
     std::stringstream ss(input_string);
     std::string value;
+    int block = 0;
+    int byte  = 0;
     while (std::getline(ss, value, ',')) {
-        // create a string key IE CONFIG000_BYTE000
-
+        // create a string key IE CONFIG0_BYTE0
+        std::string key = "CONFIG" + std::to_string(block) + "_BYTE" + std::to_string(byte);
         // add to map
+        configuration_value_m[key] = value;
+        logger->printMessage("ScfReader: PARSE CONFIG: configuration_value_m[" + key + "] = " + value, false, true, false);
+        // increment counters
+        if (byte == 511) {
+            block++;
+            byte = 0;
+        } else {
+            byte++;
+        }
     }
+    return true;
+}
 
+bool ScfReader::parseDataValues(std::string input_string){
+    // lets find and remove the {}
+    if (input_string.find('{') == std::string::npos) {
+        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'{\'", true, true, true);
+    }
+    if (input_string.find('}') == std::string::npos) {
+        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'}\'", true, true, true);
+    }
+    input_string.erase(0, 1); // remove {
+    input_string.erase(input_string.size()-1); // remove }
+
+    // split the string into values
+    std::stringstream ss(input_string);
+    std::string value;
+    int block = 0;
+    int byte  = 0;
+    while (std::getline(ss, value, ',')) {
+        // create a string key IE CONFIG0_BYTE0
+        std::string key = "DATA" + std::to_string(block) + "_BYTE" + std::to_string(byte);
+        // add to map
+        configuration_value_m[key] = value;
+        logger->printMessage("ScfReader: PARSE DATA  : configuration_value_m[" + key + "] = " + value, false, true, false);
+        // increment counters
+        if (byte == 511) {
+            block++;
+            byte = 0;
+        } else {
+            byte++;
+        }
+    }
     return true;
 }
 
@@ -207,12 +251,12 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
                     logger->printMessage("ScfReader: bytes / dblk: " + std::to_string(num_bytes_per_data_block), false, true, false);
                 } else if (key.compare("CONFIG") == 0) {
                     bool config_parse_status = false;
-                    // TODO: add config block label parsing
-                    logger->printMessage("ScfReader: cfg blk pars: " + std::to_string(config_parse_status), false, true, false); // TODO: add boolean return value from config parsing and print it
+                    config_parse_status = parseConfigValues(value);
+                    logger->printMessage("ScfReader: cfg blk pars: " + std::to_string(config_parse_status), false, true, false);
                 } else if (key.compare("DATA") == 0) {
                     bool data_parse_status = false;
-                    // TODO: add data block label parsing
-                    logger->printMessage("ScfReader: data blk par: " + std::to_string(data_parse_status), false, true, false); // TODO: add boolean return value from data parsing and print it
+                    data_parse_status = parseDataValues(value);
+                    logger->printMessage("ScfReader: data blk par: " + std::to_string(data_parse_status), false, true, false);
                 } else if (key.compare("CSV_COL_LABELS") == 0) {
                     bool csv_col_labels_parse_status = false;
                     // TODO: add csv label parsing
