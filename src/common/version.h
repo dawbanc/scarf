@@ -6,4 +6,4 @@
 // For changes view git history
 //----------------------------------------------------------------
 #define VERSION_SHORT "0.0.0"
-#define VERSION_LONG  "v0.0.0_240219_2058"
+#define VERSION_LONG  "v0.0.0_240219_2121"
