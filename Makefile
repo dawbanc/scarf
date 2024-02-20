@@ -28,7 +28,7 @@ build_scarf_config_creator build_scc:
 
 update_version:
 	@rm -f src/common/version.h
-	@sed "s/000000_0000/$(CURRENT_DATE_TIME)/g" src/common/version_string_file > src/common/version.h
+	@sed "s/000000_0000/$(CURRENT_DATE_TIME)/g" src/common/version_string_file.cpy > src/common/version.h
 
 build_scarf_debug:
 	g++ -g -Wall -fPIC \
@@ -44,7 +44,7 @@ build_scc_debug:
 
 update_version_debug:
 	@rm -f src/common/version.h
-	@sed "s/000000_0000/$(CURRENT_DATE_TIME) DEBUG/g" src/common/version_string_file > src/common/version.h
+	@sed "s/000000_0000/$(CURRENT_DATE_TIME) DEBUG/g" src/common/version_string_file.cpy > src/common/version.h
 
 run:
 	./scarf -dummy_run
