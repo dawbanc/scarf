@@ -1,9 +1,16 @@
 //----------------------------------------------------------------
 // Project:                scarf
 // Author:                 dawbanc
-// Date (yy/mm/dd):        23/12/23s
+// Date (yy/mm/dd):        24/02/20
 // Notes:
 // For changes view git history
 //----------------------------------------------------------------
-#define VERSION_SHORT "0.0.0"
-#define VERSION_LONG  "v0.0.0_240220_1958"
+#include "csv_writer.h"
+
+class CsvWriter{
+
+    private:
+
+    public:
+
+}

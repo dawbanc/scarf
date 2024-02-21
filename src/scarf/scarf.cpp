@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
   scf_reader->logger = logger;
   scf_reader->readScfFile(cli_args->getConfPath());
 
-  // write the titles of the
+  // write the titles of the csv file
 
   // read sd card config blocks
 
