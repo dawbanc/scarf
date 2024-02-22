@@ -9,8 +9,17 @@
 
 class CsvWriter{
 
-    private:
+private:
+    std::string csv_file_path;
+    int num_col;
 
-    public:
+public:
+    CsvWriter(std::string csv_file_path_in, int num_col_in);
+};
 
+CsvWriter::CsvWriter(std::string csv_file_path_in, int num_col_in) {
+    csv_file_path = csv_file_path_in;
+    num_col = num_col_in;
 }
+
+
