@@ -147,10 +147,10 @@ bool ScfReader::parseDataValues(std::string input_string){
 bool ScfReader::parseCsvLabelValues(std::string input_string){
     // lets find and remove the {}
     if (input_string.find('{') == std::string::npos) {
-        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'{\'", true, true, true);
+        logger->printError('E', 8, "Configuration value has a syntax error:  LABEL: missing \'{\'", true, true, true);
     }
     if (input_string.find('}') == std::string::npos) {
-        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'}\'", true, true, true);
+        logger->printError('E', 8, "Configuration value has a syntax error:  LABEL: missing \'}\'", true, true, true);
     }
     input_string.erase(0, 1); // remove {
     input_string.erase(input_string.size()-1); // remove }
@@ -174,10 +174,10 @@ bool ScfReader::parseCsvLabelValues(std::string input_string){
 bool ScfReader::parseCsvMathValues(std::string input_string) {
     // lets find and remove the {}
     if (input_string.find('{') == std::string::npos) {
-        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'{\'", true, true, true);
+        logger->printError('E', 8, "Configuration value has a syntax error:   MATH: missing \'{\'", true, true, true);
     }
     if (input_string.find('}') == std::string::npos) {
-        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'}\'", true, true, true);
+        logger->printError('E', 8, "Configuration value has a syntax error:   MATH: missing \'}\'", true, true, true);
     }
     input_string.erase(0, 1); // remove {
     input_string.erase(input_string.size()-1); // remove }
