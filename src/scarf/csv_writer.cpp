@@ -16,7 +16,7 @@ private:
     std::ofstream csv_file;
 
 public:
-    CsvWriter(std::string csv_file_path_in, int num_col_in);
+    CsvWriter(std::string csv_file_path_in, int num_col_in, ScarfLogger* logger_in);
     bool openCsvFile(void);
     bool closeCsvFile(void);
 };

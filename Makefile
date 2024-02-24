@@ -4,10 +4,12 @@ all:
 CURRENT_DATE_TIME := $(shell date +"%y%m%d_%H%M")
 
 clean:
+	@echo "Cleaning directory..."
 	@rm -f scarf scarf-config-creator
 	@rm -f null
 	@rm -f scarf_log scarf_debug
 	@rm -f scc_log
+	@rm -f *.csv
 
 build: update_version build_scarf build_scarf_config_creator
 

@@ -87,6 +87,10 @@ int main(int argc, char *argv[]) {
   scf_reader->logger = logger;
   scf_reader->readScfFile(cli_args->getConfPath());
 
+  // open CSV file
+  CsvWriter* csv_writer = new CsvWriter("output.csv", 512, logger);
+  csv_writer->openCsvFile();
+
   // write the titles of the csv file
 
   // read sd card config blocks
@@ -97,6 +101,9 @@ int main(int argc, char *argv[]) {
 
   // write the sd card data block into file
 
+
+  // close files
+  csv_writer->closeCsvFile();
   logger->closeLog();
   return 0;
 }
