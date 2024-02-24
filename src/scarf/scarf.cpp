@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
   scf_reader->readScfFile(cli_args->getConfPath());
 
   // open CSV file
-  CsvWriter* csv_writer = new CsvWriter("output.csv", 512, logger);
+  CsvWriter* csv_writer = new CsvWriter("output.csv", scf_reader->getNumberOfColumns(), logger);
   csv_writer->openCsvFile();
 
   // write the titles of the csv file

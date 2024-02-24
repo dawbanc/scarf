@@ -16,6 +16,7 @@ class ScfReader{
         int num_config_blocks = 0;
         int num_data_blocks = 0;
         int num_bytes_per_data_block = 0;
+        int num_columns;
 
         std::map<std::string, std::string> configuration_value_m;
         std::map<std::string, std::string> data_value_m;
@@ -52,7 +53,7 @@ class ScfReader{
     public:
         ScarfLogger* logger;
         void readScfFile(std::string scf_file_path);
-
+        int getNumberOfColumns(void);
 };
 
 bool ScfReader::to_bool(std::string s) {
@@ -376,5 +377,15 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
     if ((num_config_blocks == 0) && (configuration_value_m.size() != 0)) {
         logger->printError('E', 15, "ScfReader: NUMBER_CONFIG_BLOCKS is set to 0, but CONFIG has values.", true, true, true);
     }
+
+    // set internal values
+    num_columns = csv_labels_m.size();
+    logger->printMessage("ScfReader: num_columns set to : " + std::to_string(num_columns), false, true, false);
+
+
     logger->printMessage("ScfReader: config file parsed: " + scf_file_path_in, true, true, true);
+}
+
+int ScfReader::getNumberOfColumns(void) {
+    return num_columns;
 }
