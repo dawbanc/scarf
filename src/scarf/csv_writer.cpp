@@ -21,7 +21,7 @@ public:
     bool openCsvFile(void);
     bool closeCsvFile(void);
     bool writeColumnHeaders(std::map<std::string, std::string> headers);
-
+    bool writeData(std::map<std::string, std::string> data_map);
 };
 
 CsvWriter::CsvWriter(std::string csv_file_path_in, int num_col_in, ScarfLogger* logger_in) {
@@ -51,9 +51,30 @@ bool CsvWriter::closeCsvFile(void){
 
 bool CsvWriter::writeColumnHeaders(std::map<std::string, std::string> headers){
 
-    for (int i=0; i < int(headers.size()); i++) {
+    if (headers.size() != num_col) {
+        logger->printError('E', 18, "CsvWriter header map size and number of columns do not match.", true, true, true);
+    }
+
+    for (int i=0; i < num_col; i++) {
         std::string key = "COL_HEADER_" + std::to_string(i);
         csv_file << headers[key] << ",";
+    }
+
+    csv_file << std::endl;
+
+    logger->printMessage("CsvWriter: Headers written to " + csv_file_path, false, true, false);
+
+    return true;
+}
+
+bool CsvWriter::writeData(std::map<std::string, std::string> data_map) {
+    if (data_map.size() != num_col) {
+        logger->printError('E', 18, "CsvWriter data map size and number of columns do not match.", true, true, true);
+    }
+
+    for (int i=0; i < num_col; i++) {
+        std::string key = "COL" + std::to_string(i);
+        csv_file << data_map[key] << ",";
     }
 
     csv_file << std::endl;

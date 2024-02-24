@@ -57,3 +57,6 @@ scarf-16 : FATAL
 
 scarf-17 : FATAL
     CSV file path cannot be written to. Please check file permissions for the output directory and run again.
+
+scarf-18 : ERROR
+    CSV file column number and number of values sent to write to CSV do not match. Check config and run again. There may be mismatches.
