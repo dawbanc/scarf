@@ -219,6 +219,7 @@ bool ScfReader::parseCsvMathValues(std::string input_string) {
         // if current_value isn't  empty then add it to the map
         current_key = "COL" + std::to_string(value_cnt);
         csv_math_m[current_key] = current_value;
+        logger->printMessage("ScfReader:PARSE CSVMATH:            csv_math_m[" + current_key + "] = " + current_value, false, true, false);
         current_value.clear();
         current_key.clear();
         value_cnt++;

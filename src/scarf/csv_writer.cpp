@@ -51,12 +51,14 @@ bool CsvWriter::closeCsvFile(void){
 
 bool CsvWriter::writeColumnHeaders(std::map<std::string, std::string> headers){
 
-    for (int i=0; i < headers.size()-1; i++) {
+    for (int i=0; i < int(headers.size()); i++) {
         std::string key = "COL_HEADER_" + std::to_string(i);
         csv_file << headers[key] << ",";
     }
 
     csv_file << std::endl;
+
+    logger->printMessage("CsvWriter: Headers written to " + csv_file_path, false, true, false);
 
     return true;
 }
