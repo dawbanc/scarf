@@ -54,6 +54,8 @@ class ScfReader{
         ScarfLogger* logger;
         void readScfFile(std::string scf_file_path);
         int getNumberOfColumns(void);
+
+        const std::map<std::string, std::string> getCsvLabelsMap(void);
 };
 
 bool ScfReader::to_bool(std::string s) {
@@ -388,4 +390,8 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
 
 int ScfReader::getNumberOfColumns(void) {
     return num_columns;
+}
+
+const std::map<std::string, std::string> ScfReader::getCsvLabelsMap(void) {
+    return csv_labels_m;
 }

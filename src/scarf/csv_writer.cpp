@@ -7,6 +7,7 @@
 //----------------------------------------------------------------
 #include "csv_writer.h"
 
+//template <typename K, typename V>
 class CsvWriter{
 
 private:
@@ -19,6 +20,8 @@ public:
     CsvWriter(std::string csv_file_path_in, int num_col_in, ScarfLogger* logger_in);
     bool openCsvFile(void);
     bool closeCsvFile(void);
+    bool writeColumnHeaders(std::map<std::string, std::string> headers);
+
 };
 
 CsvWriter::CsvWriter(std::string csv_file_path_in, int num_col_in, ScarfLogger* logger_in) {
@@ -43,5 +46,17 @@ bool CsvWriter::openCsvFile(void){
 
 bool CsvWriter::closeCsvFile(void){
     csv_file.close();
+    return true;
+}
+
+bool CsvWriter::writeColumnHeaders(std::map<std::string, std::string> headers){
+
+    for (int i=0; i < headers.size()-1; i++) {
+        std::string key = "COL_HEADER_" + std::to_string(i);
+        csv_file << headers[key] << ",";
+    }
+
+    csv_file << std::endl;
+
     return true;
 }

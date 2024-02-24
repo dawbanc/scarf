@@ -92,6 +92,7 @@ int main(int argc, char *argv[]) {
   csv_writer->openCsvFile();
 
   // write the titles of the csv file
+  csv_writer->writeColumnHeaders(scf_reader->getCsvLabelsMap());
 
   // read sd card config blocks
 
