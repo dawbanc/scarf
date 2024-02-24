@@ -12,3 +12,4 @@
 #include "scarf_cli_args.cpp"
 
 #include "scf_reader.cpp"
+#include "csv_writer.cpp"
