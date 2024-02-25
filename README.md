@@ -1,14 +1,8 @@
 # scarf
-UNFINISHED
+STATUS: UNFINISHED
 
-cpp based tool to convert raw sd data to a human readable format (csv {or future formats}).
+The scarf (or Sd card Converter And Real Formatter) program is to convert raw data from an SD card (or another device) to something more appeasable to humans. 
 
-This will replace my older tool ( Raw-SD-Card-to-Spreadsheet ) once complete.
+This is written in Cpp to be a bit faster than my previous Python implementation (dawbanc/Raw-SD-Card-to-Spreadsheet).
 
-
-scarf stands for:
-Sd card
-Converter
-And
-Real
-Formatter
+Once the project hits it's first "working" version, I will post installation instructions here (TODO).

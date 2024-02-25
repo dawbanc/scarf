@@ -51,3 +51,12 @@ scarf-14 : FATAL
 
 scarf-15 : ERROR
     CONFIG is set but NUMBER_CONFIG_BLOCKS is set to 0. This may lead to errors later. Please fix as soon as possible.
+
+scarf-16 : FATAL
+    CsvWriter got a null handle for where the CSV is supposed to be written.
+
+scarf-17 : FATAL
+    CSV file path cannot be written to. Please check file permissions for the output directory and run again.
+
+scarf-18 : ERROR
+    CSV file column number and number of values sent to write to CSV do not match. Check config and run again. There may be mismatches.

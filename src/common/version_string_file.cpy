@@ -1,15 +1,9 @@
 //----------------------------------------------------------------
 // Project:                scarf
 // Author:                 dawbanc
-// Date (yy/mm/dd):        24/01/26
+// Date (yy/mm/dd):        23/12/23s
 // Notes:
 // For changes view git history
 //----------------------------------------------------------------
-#include <cstring>
-#include <string>
-
-#include "scarf_logger.cpp"
-#include "scarf_cli_args.cpp"
-
-#include "scf_reader.cpp"
-#include "csv_writer.cpp"
+#define VERSION_SHORT "0.0.0"
+#define VERSION_LONG  "v0.0.0_000000_0000"

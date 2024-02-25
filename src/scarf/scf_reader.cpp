@@ -16,6 +16,7 @@ class ScfReader{
         int num_config_blocks = 0;
         int num_data_blocks = 0;
         int num_bytes_per_data_block = 0;
+        int num_columns;
 
         std::map<std::string, std::string> configuration_value_m;
         std::map<std::string, std::string> data_value_m;
@@ -52,7 +53,9 @@ class ScfReader{
     public:
         ScarfLogger* logger;
         void readScfFile(std::string scf_file_path);
+        int getNumberOfColumns(void);
 
+        const std::map<std::string, std::string> getCsvLabelsMap(void);
 };
 
 bool ScfReader::to_bool(std::string s) {
@@ -147,10 +150,10 @@ bool ScfReader::parseDataValues(std::string input_string){
 bool ScfReader::parseCsvLabelValues(std::string input_string){
     // lets find and remove the {}
     if (input_string.find('{') == std::string::npos) {
-        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'{\'", true, true, true);
+        logger->printError('E', 8, "Configuration value has a syntax error:  LABEL: missing \'{\'", true, true, true);
     }
     if (input_string.find('}') == std::string::npos) {
-        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'}\'", true, true, true);
+        logger->printError('E', 8, "Configuration value has a syntax error:  LABEL: missing \'}\'", true, true, true);
     }
     input_string.erase(0, 1); // remove {
     input_string.erase(input_string.size()-1); // remove }
@@ -174,10 +177,10 @@ bool ScfReader::parseCsvLabelValues(std::string input_string){
 bool ScfReader::parseCsvMathValues(std::string input_string) {
     // lets find and remove the {}
     if (input_string.find('{') == std::string::npos) {
-        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'{\'", true, true, true);
+        logger->printError('E', 8, "Configuration value has a syntax error:   MATH: missing \'{\'", true, true, true);
     }
     if (input_string.find('}') == std::string::npos) {
-        logger->printError('E', 8, "Configuration value has a syntax error:   DATA: missing \'}\'", true, true, true);
+        logger->printError('E', 8, "Configuration value has a syntax error:   MATH: missing \'}\'", true, true, true);
     }
     input_string.erase(0, 1); // remove {
     input_string.erase(input_string.size()-1); // remove }
@@ -216,6 +219,7 @@ bool ScfReader::parseCsvMathValues(std::string input_string) {
         // if current_value isn't  empty then add it to the map
         current_key = "COL" + std::to_string(value_cnt);
         csv_math_m[current_key] = current_value;
+        logger->printMessage("ScfReader:PARSE CSVMATH:            csv_math_m[" + current_key + "] = " + current_value, false, true, false);
         current_value.clear();
         current_key.clear();
         value_cnt++;
@@ -376,5 +380,19 @@ void ScfReader::readScfFile(std::string scf_file_path_in){
     if ((num_config_blocks == 0) && (configuration_value_m.size() != 0)) {
         logger->printError('E', 15, "ScfReader: NUMBER_CONFIG_BLOCKS is set to 0, but CONFIG has values.", true, true, true);
     }
+
+    // set internal values
+    num_columns = csv_labels_m.size();
+    logger->printMessage("ScfReader: num_columns set to : " + std::to_string(num_columns), false, true, false);
+
+
     logger->printMessage("ScfReader: config file parsed: " + scf_file_path_in, true, true, true);
+}
+
+int ScfReader::getNumberOfColumns(void) {
+    return num_columns;
+}
+
+const std::map<std::string, std::string> ScfReader::getCsvLabelsMap(void) {
+    return csv_labels_m;
 }
