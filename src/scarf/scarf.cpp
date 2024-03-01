@@ -57,7 +57,8 @@ int main(int argc, char *argv[]) {
         cli_args->setQuiet(true);
       } else if ((strcmp(argv[i], "-version") == 0) ||
                  (strcmp(argv[i], "--version") == 0)) {
-        // TODO: Print version info and exit
+        logger->printProgramVersionShort();
+        return 0;
       } else {
         unrecognized_args[unrecognized_args_cnt] = argv[i];
         logger->printError('E', 1, "unrecognized arguments detected: " + std::string(argv[i]) + " . Program will continue.", true, false, false);

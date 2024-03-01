@@ -44,6 +44,8 @@ class ScarfLogger{
         void printLineToAll(std::string line);
         // prints the program information
         void printProgramVersion(void);
+        // prints the program version but shorter
+        void printProgramVersionShort(void);
         // prints a warning, error, or fatal message
         void printError(char severity, int error_number, std::string description, bool terminal, bool internal, bool external);
         // prints a general message
@@ -149,6 +151,11 @@ void ScarfLogger::printProgramVersion(void){
     printLineToAll("⠓⠟⠹⠀⠀⠀⠀⠀ -");
     printLineToAll("-----------------------------------------------------");
     printLineToAll("");
+}
+
+void ScarfLogger::printProgramVersionShort(void) {
+    printLineToTerminal(program_name + " " + std::string(VERSION_SHORT));
+    printLineToTerminal(std::string(VERSION_LONG));
 }
 
 void ScarfLogger::printError(char severity, int error_number, std::string description, bool terminal, bool internal, bool external){
