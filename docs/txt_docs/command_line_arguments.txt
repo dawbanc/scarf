@@ -6,6 +6,9 @@ Example usage:
 -conf <path/to/conf.yaml>:
     Specifies the path to the configuration yaml file.
 
+-csv_file <csv_file_output>:
+    Specify the output CSV file.
+
 -debug:
     Prints out additional information to debug the program.
 
@@ -23,3 +26,6 @@ Example usage:
 
 -quiet:
     Suppresses terminal output
+
+-version || --version:
+    Print out version info and exit.
