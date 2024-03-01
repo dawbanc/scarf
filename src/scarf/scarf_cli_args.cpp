@@ -10,11 +10,12 @@
 class ScarfCLIArgs {
     private:
         std::string conf_path;                      // -conf <path>
+        std::string csv_path;                       // -csv_file <path>
         bool debug = false;                         // -debug
         bool dummy_run = false;                     // -dummy_run
         bool help = false;                          // --help | --h | -help | -h
         std::string int_log_path = "null";          // -int_log <path>
-        std::string ext_log_path = "null";     // -log <path> (default is scarf_log)
+        std::string ext_log_path = "null";          // -log <path> (default is scarf_log)
         bool no_log = false;
         std::string raw_file_path = "null";         // -raw
         bool quiet = false;                         // -quiet
@@ -23,6 +24,9 @@ class ScarfCLIArgs {
     public:
         void setConfPath(std::string input_conf_path);
         std::string getConfPath(void);
+
+        void setCsvPath(std::string input_csv_path);
+        std::string getCsvPath(void);
 
         void setDebug(bool input_debug);
         bool getDebug(void);
@@ -58,6 +62,14 @@ void ScarfCLIArgs::setConfPath(std::string input_conf_path){
 
 std::string ScarfCLIArgs::getConfPath(void){
     return conf_path;
+}
+
+void ScarfCLIArgs::setCsvPath(std::string input_csv_path){
+    csv_path = input_csv_path;
+}
+
+std::string ScarfCLIArgs::getCsvPath(void) {
+    return csv_path;
 }
 
 void ScarfCLIArgs::setDebug(bool input_debug){
@@ -137,6 +149,9 @@ std::string ScarfCLIArgs::toString(void){
     temp.append("CLI Argument Configuration:\n");
     temp.append("-conf:     \t");
     temp.append(getConfPath());
+    temp.append("\n");
+    temp.append("-csv_file: \t");
+    temp.append(getCsvPath());
     temp.append("\n");
     temp.append("-debug:    \t");
     temp.append(boolToString(getDebug()));
