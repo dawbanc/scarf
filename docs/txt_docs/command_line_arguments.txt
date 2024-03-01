@@ -28,4 +28,4 @@ Example usage:
     Suppresses terminal output
 
 -version || --version:
-    Print out version info.
+    Print out version info and exit.

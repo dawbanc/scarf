@@ -25,6 +25,9 @@ int main(int argc, char *argv[]) {
       if (strcmp(argv[i], "-conf") == 0) {
         cli_args->setConfPath(argv[i+1]);
         i++;
+      } else if (strcmp(argv[i], "-csv_file") == 0){
+        // TODO: set cli args csv file path
+        i++;
       } else if (strcmp(argv[i], "-debug") == 0) {
         cli_args->setDebug(true);
       } else if (strcmp(argv[i], "-dummy_run") == 0) {
@@ -51,6 +54,9 @@ int main(int argc, char *argv[]) {
         i++;
       } else if (strcmp(argv[i], "-quiet") == 0) {
         cli_args->setQuiet(true);
+      } else if ((strcmp(argv[i], "-version") == 0) ||
+                 (strcmp(argv[i], "--version") == 0)) {
+        // TODO: Print version info and exit
       } else {
         unrecognized_args[unrecognized_args_cnt] = argv[i];
         logger->printError('E', 1, "unrecognized arguments detected: " + std::string(argv[i]) + " . Program will continue.", true, false, false);
