@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
         cli_args->setConfPath(argv[i+1]);
         i++;
       } else if (strcmp(argv[i], "-csv_file") == 0){
-        // TODO: set cli args csv file path
+        cli_args->setCsvPath(argv[i+1]);
         i++;
       } else if (strcmp(argv[i], "-debug") == 0) {
         cli_args->setDebug(true);
@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
         cli_args->setConfPath("config/debug_simple.scf");
         cli_args->setIntLogPath("scarf_debug");
         cli_args->setRawFilePath("simple.raw");
+        cli_args->setCsvPath("output.csv");
       } else if ((strcmp(argv[i], "--h") == 0) ||
                  (strcmp(argv[i], "--help") == 0) ||
                  (strcmp(argv[i], "-help") == 0) ||
@@ -94,7 +95,7 @@ int main(int argc, char *argv[]) {
   scf_reader->readScfFile(cli_args->getConfPath());
 
   // open CSV file
-  CsvWriter* csv_writer = new CsvWriter("output.csv", scf_reader->getNumberOfColumns(), logger);
+  CsvWriter* csv_writer = new CsvWriter(cli_args->getCsvPath(), scf_reader->getNumberOfColumns(), logger);
   csv_writer->openCsvFile();
 
   // write the titles of the csv file
