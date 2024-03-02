@@ -158,6 +158,17 @@ void ScarfLogger::printProgramVersionShort(void) {
     printLineToTerminal(std::string(VERSION_LONG));
 }
 
+void ScarfLogger::printHelp(void) {
+    if (program_name == "scarf") {
+        // if program is scarf print scarf help
+    } else if (program_name == "scc") {
+        // if program is scc print scc help
+    } else {
+        //fatal error
+    }
+
+}
+
 void ScarfLogger::printError(char severity, int error_number, std::string description, bool terminal, bool internal, bool external){
     //severity char: W for Warning, E for Error, and F for Fatal
     std::string message_out;
