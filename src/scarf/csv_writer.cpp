@@ -12,7 +12,7 @@ class CsvWriter{
 
 private:
     std::string csv_file_path;
-    int num_col;
+    long unsigned int num_col;
     ScarfLogger* logger;
     std::ofstream csv_file;
 
@@ -55,7 +55,7 @@ bool CsvWriter::writeColumnHeaders(std::map<std::string, std::string> headers){
         logger->printError('E', 18, "CsvWriter header map size and number of columns do not match.", true, true, true);
     }
 
-    for (int i=0; i < num_col; i++) {
+    for (long unsigned int i=0; i < num_col; i++) {
         std::string key = "COL_HEADER_" + std::to_string(i);
         csv_file << headers[key] << ",";
     }
@@ -72,7 +72,7 @@ bool CsvWriter::writeData(std::map<std::string, std::string> data_map) {
         logger->printError('E', 18, "CsvWriter data map size and number of columns do not match.", true, true, true);
     }
 
-    for (int i=0; i < num_col; i++) {
+    for (long unsigned int i=0; i < num_col; i++) {
         std::string key = "COL" + std::to_string(i);
         csv_file << data_map[key] << ",";
     }
