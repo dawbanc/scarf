@@ -2,6 +2,7 @@
 all:
 
 CURRENT_DATE_TIME := $(shell date +"%y%m%d_%H%M")
+GIT_BRANCH := $(shell git branch --show-current)
 
 clean:
 	@echo "Cleaning directory..."
@@ -29,7 +30,7 @@ build_scarf_config_creator build_scc:
 	-o scarf-config-creator src/scarf_config_creator/scarf_config_creator.cpp
 
 update_version:
-	@sed "s/000000_0000/$(CURRENT_DATE_TIME)/g" src/common/version_string_file.cpy > src/common/version.h
+	@sed "s/000000_0000/$(CURRENT_DATE_TIME)_$(GIT_BRANCH)/g" src/common/version_string_file.cpy > src/common/version.h
 
 build_scarf_debug:
 	g++ -g -Wall -fPIC \
@@ -44,7 +45,7 @@ build_scc_debug:
 	-o scarf-config-creator src/scarf_config_creator/scarf_config_creator.cpp
 
 update_version_debug:
-	@sed "s/000000_0000/$(CURRENT_DATE_TIME) DEBUG/g" src/common/version_string_file.cpy > src/common/version.h
+	@sed "s/000000_0000/$(CURRENT_DATE_TIME)_$(GIT_BRANCH) DEBUG/g" src/common/version_string_file.cpy > src/common/version.h
 
 run:
 	./scarf -dummy_run
