@@ -60,3 +60,6 @@ scarf-17 : FATAL
 
 scarf-18 : ERROR
     CSV file column number and number of values sent to write to CSV do not match. Check config and run again. There may be mismatches.
+
+scarf-19 : FATAL
+    Program name not recognized. Internal scarf error.

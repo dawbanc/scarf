@@ -46,6 +46,8 @@ class ScarfLogger{
         void printProgramVersion(void);
         // prints the program version but shorter
         void printProgramVersionShort(void);
+        // print help info message
+        void printHelp(void);
         // prints a warning, error, or fatal message
         void printError(char severity, int error_number, std::string description, bool terminal, bool internal, bool external);
         // prints a general message
@@ -156,6 +158,63 @@ void ScarfLogger::printProgramVersion(void){
 void ScarfLogger::printProgramVersionShort(void) {
     printLineToTerminal(program_name + " " + std::string(VERSION_SHORT));
     printLineToTerminal(std::string(VERSION_LONG));
+}
+
+void ScarfLogger::printHelp(void) {
+    if (program_name == "scarf") {
+        // if program is scarf print scarf help
+        printLineToAll("-----------------------------------------------------");
+        printLineToAll("Scarf Help Message");
+        printLineToAll("-----------------------------------------------------");
+
+        printLineToAll("Example usage: scarf [options] <-raw path/to/image.raw>");
+        printLineToAll("");
+
+        printLineToAll("\t-conf <path/to/conf.yaml>:");
+        printLineToAll("\t\tSpecifies the path to the configuration yaml file.");
+        printLineToAll("");
+
+        printLineToAll("\t-csv_file <csv_file_output>:");
+        printLineToAll("\t\tSpecify the output CSV file.");
+        printLineToAll("");
+
+        printLineToAll("\t-debug:");
+        printLineToAll("\t\tPrints out additional information to debug the program.");
+        printLineToAll("");
+
+        printLineToAll("\t--h || --help:");
+        printLineToAll("\t\tPrints out the help information.");
+        printLineToAll("");
+
+        printLineToAll("\t-log <path>:");
+        printLineToAll("\t\tSpecifies the log path rather than $PWD/scarf_log");
+        printLineToAll("");
+
+        printLineToAll("\t-no_log:");
+        printLineToAll("\t\tWill not print out the transcript");
+        printLineToAll("");
+
+        printLineToAll("\t-raw <path/to/image.raw>:");
+        printLineToAll("\t\tSpecifies the path to the raw image to pull data from");
+        printLineToAll("");
+
+        printLineToAll("\t-quiet:");
+        printLineToAll("\t\tSuppresses terminal output");
+        printLineToAll("");
+
+        printLineToAll("\t-version || --version:");
+        printLineToAll("\t\tPrint out version info and exit.");
+        printLineToAll("");
+
+    } else if (program_name == "scc") {
+        // if program is scc print scc help
+
+    } else {
+        //fatal error
+        printError('F', 19, "Internal error has occured. " + program_name + " is not a valid program.", true, true, true);
+    }
+    closeLog();
+    exit(1);
 }
 
 void ScarfLogger::printError(char severity, int error_number, std::string description, bool terminal, bool internal, bool external){
