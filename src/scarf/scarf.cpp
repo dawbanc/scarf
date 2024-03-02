@@ -89,6 +89,9 @@ int main(int argc, char *argv[]) {
     logger->printLineToAll(cli_args->toString()); // if debug is enabled, show the cli config
   }
   logger->printMessage("Logger Initiated.\n", false, true, false);
+  if (cli_args->getHelp()) {
+    logger->printHelp();
+  }
 
   // get sd configuration
   ScfReader* scf_reader = new ScfReader();
