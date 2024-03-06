@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
   csv_writer->writeColumnHeaders(scf_reader->getCsvLabelsMap());
 
   // initiate raw raw reader
-  RawReader* raw_reader = new RawReader();
+  RawReader* raw_reader = new RawReader(cli_args->getRawFilePath(), logger);
 
   // read sd card config blocks
 

@@ -63,3 +63,6 @@ scarf-18 : ERROR
 
 scarf-19 : FATAL
     Program name not recognized. Internal scarf error.
+
+scarf-20 : FATAL
+    Error opening the raw file path. Either the file does not exist, or you don't have access to the file.
