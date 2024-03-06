@@ -12,6 +12,7 @@ clean:
 	@rm -f scc_log
 	@rm -f *.csv
 	@rm -f src/common/version.h
+	@touch src/common/version.h
 
 build: update_version build_scarf build_scarf_config_creator
 

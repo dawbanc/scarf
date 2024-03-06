@@ -21,8 +21,8 @@ Example usage:
 -no_log:
     Will not print out the transcript
 
--raw <path/to/image.raw>:
-    Specifies the path to the raw image to pull data from
+-raw <path/to/.raw or sd card>:
+    Specifies the path to the raw image to pull data from. You can specify the SD card itself (ie /dev/mmc0) or a .raw file created with dd that is an image of the SD card (ie /home/user/sd_card.raw).
 
 -quiet:
     Suppresses terminal output
