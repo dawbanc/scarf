@@ -13,16 +13,23 @@ class RawReader{
 private:
     std::string raw_file_path;
     std::ifstream raw_file;
+    ScarfLogger* logger;
 
 public:
-    void setRawFilePath(std::string input_raw_file_path);
+    RawReader(std::string raw_file_path_in, ScarfLogger* logger_in);
+    void setRawFilePath(std::string raw_file_path_in);
     std::string getRawFilePath(void);
     void openRawFile(void);
     void closeFile(void);
 };
 
-void RawReader::setRawFilePath(std::string input_raw_file_path) {
-    raw_file_path = input_raw_file_path;
+RawReader::RawReader(std::string raw_file_path_in, ScarfLogger* logger_in) {
+    raw_file_path = raw_file_path_in;
+    logger = logger_in;
+}
+
+void RawReader::setRawFilePath(std::string raw_file_path_in) {
+    raw_file_path = raw_file_path_in;
 }
 
 std::string RawReader::getRawFilePath(void) {
