@@ -125,6 +125,7 @@ int main(int argc, char *argv[]) {
 
 
   // close files
+  raw_reader->closeRawFile();
   csv_writer->closeCsvFile();
   logger->closeLog();
   return 0;

@@ -20,7 +20,7 @@ public:
     void setRawFilePath(std::string raw_file_path_in);
     std::string getRawFilePath(void);
     void openRawFile(void);
-    void closeFile(void);
+    void closeRawFile(void);
 
     //TODO: Change from void
     void readBlock(unsigned long int block_number);
@@ -47,7 +47,7 @@ void RawReader::openRawFile(void) {
     }
 }
 
-void RawReader::closeFile(void) {
+void RawReader::closeRawFile(void) {
     raw_file.close();
 }
 
