@@ -53,7 +53,18 @@ void RawReader::closeFile(void) {
 
 void RawReader::readBlock(unsigned long int block_number) {
     // move pointer to the the desired block
-    raw_file.seekg(block_number*512, std::ios::beg);
+    raw_file.seekg(raw_file.beg);
+    raw_file.seekg(block_number*512);
     unsigned char block_buffer[512];
     raw_file.read( (char*)( &block_buffer[0]), 512);
+
+    // convert to a more readable format
+    char buffer [1024];
+    buffer[1023] = 0;
+    for (int i=0; i<512; i++) {
+        sprintf(&buffer[2*i], "%02x", block_buffer[i]);
+    }
+
+    logger->printMessage("RawReader: Block number: " + std::to_string(block_number) + "\n\t" + buffer, false, true, false);
+
 }

@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
         cli_args->setDebug(true);
         cli_args->setConfPath("config/debug_simple.scf");
         cli_args->setIntLogPath("scarf_debug");
-        cli_args->setRawFilePath("simple.raw");
+        cli_args->setRawFilePath("/home/dxb/Documents/github/scarf/test_input/sd_test_240304.raw");
         cli_args->setCsvPath("output.csv");
       } else if ((strcmp(argv[i], "--h") == 0) ||
                  (strcmp(argv[i], "--help") == 0) ||
@@ -107,6 +107,12 @@ int main(int argc, char *argv[]) {
 
   // initiate raw raw reader
   RawReader* raw_reader = new RawReader(cli_args->getRawFilePath(), logger);
+  raw_reader->openRawFile();
+
+  // test read blocks
+  raw_reader->readBlock(0);
+  raw_reader->readBlock(2);
+  raw_reader->readBlock(1);
 
   // read sd card config blocks
 
