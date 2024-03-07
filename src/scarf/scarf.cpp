@@ -116,7 +116,6 @@ int main(int argc, char *argv[]) {
 
   // read sd card config blocks
 
-
   // read the data
 
   // read the sd card data block
