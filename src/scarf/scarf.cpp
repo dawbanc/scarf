@@ -110,15 +110,18 @@ int main(int argc, char *argv[]) {
   raw_reader->openRawFile();
 
   // test read blocks
-  raw_reader->readBlock(0);
-  raw_reader->readBlock(2);
-  raw_reader->readBlock(1);
+  //raw_reader->readBlock(0);
+  //raw_reader->readBlock(2);
+  //raw_reader->readBlock(1);
 
   // read sd card config blocks
 
+
   // read the data
 
+
   // read the sd card data block
+
 
   // write the sd card data block into file
 
