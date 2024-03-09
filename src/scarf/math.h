@@ -5,3 +5,6 @@
 // Notes:
 // For changes view git history
 //----------------------------------------------------------------
+
+#include <string>
+#include <map>
