@@ -56,6 +56,8 @@ class ScfReader{
         int getNumberOfColumns(void);
 
         const std::map<std::string, std::string> getCsvLabelsMap(void);
+
+        std::string searchMaps(std::string key);
 };
 
 bool ScfReader::to_bool(std::string s) {
@@ -395,4 +397,22 @@ int ScfReader::getNumberOfColumns(void) {
 
 const std::map<std::string, std::string> ScfReader::getCsvLabelsMap(void) {
     return csv_labels_m;
+}
+
+std::string ScfReader::searchMaps(std::string key) {
+    std::string value = "null"; // not found condition
+
+    if (configuration_value_m.find(key) != configuration_value_m.end()) {
+        return configuration_value_m[key];
+    }
+    if (data_value_m.find(key) != data_value_m.end()) {
+        return data_value_m[key];
+    }
+    if (csv_math_m.find(key) != csv_math_m.end()) {
+        return csv_math_m[key];
+    }
+    if (constants_m.find(key) != constants_m.end()) {
+        return constants_m[key];
+    }
+    return value;
 }
