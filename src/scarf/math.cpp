@@ -7,6 +7,7 @@
 //----------------------------------------------------------------
 
 #include "math.h"
+#include <string>
 
 class Math {
 
@@ -15,11 +16,15 @@ private:
 
 public:
 
-    void parseMathString(std::string inputMath);
+    std::string parseMathString(std::string inputMath);
 
 };
 
-void Math::parseMathString(std::string inputMath){
+std::string Math::parseMathString(std::string inputMath){
+    std::string outputValue;
 
 
+
+    return outputValue;
 }
+
